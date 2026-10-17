@@ -1,0 +1,1466 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kardashian Love Files</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500;1,6..96,700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style>
+/* Layout: glossy gossip-mag spread — radial family network as the hero, then the "who's with who now" strip, then every love timeline stacked */
+:root{
+  --bg:#F8EFF1; --paper:#FFFFFF; --ink:#2A1620; --muted:#7A5F6B; --line:#EAD7DD;
+  --accent:#B0154F; --accent-soft:#F6D5E1; --gold:#9A6E22;
+  --c-ath:#1F5FA8; --c-mus:#B0154F; --c-scr:#7A3FB0; --c-oth:#6B6255;
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1A0F15; --paper:#26171F; --ink:#F6E9EE; --muted:#BFA2AE; --line:#3D2632;
+  --accent:#FF5E9A; --accent-soft:#4A1F31; --gold:#E2B866;
+  --c-ath:#6FA8F0; --c-mus:#FF5E9A; --c-scr:#C49AF0; --c-oth:#B7AC9C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A0F15; --paper:#26171F; --ink:#F6E9EE; --muted:#BFA2AE; --line:#3D2632;
+  --accent:#FF5E9A; --accent-soft:#4A1F31; --gold:#E2B866;
+  --c-ath:#6FA8F0; --c-mus:#FF5E9A; --c-scr:#C49AF0; --c-oth:#B7AC9C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:20px 48px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* masthead */
+.mast{display:flex;flex-direction:column;gap:6px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,10vw,64px);line-height:.95;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.dek{color:var(--muted);margin:0;font-size:14px}
+
+h2{font-family:var(--display);font-style:italic;font-weight:500;font-size:24px;margin:0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-head small{color:var(--muted);font-size:12px}
+
+/* now strip */
+.now{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.couple{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer}
+.couple:hover{border-color:var(--accent)}
+.pair{display:flex;align-items:center}
+.pair .av + .heart{margin-left:-6px;z-index:2}
+.pair .heart + .av{margin-left:-6px}
+.heart{width:22px;height:22px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.heart svg{width:12px;height:12px;fill:#fff}
+.couple b{font-family:var(--display);font-size:17px;font-weight:700;line-height:1.1}
+.couple span{font-size:13px;color:var(--muted)}
+.couple .single{color:var(--gold);font-weight:600}
+
+/* avatars */
+.av{--c:var(--c-oth);width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-weight:700;font-size:14px;letter-spacing:.02em;color:var(--c);background:var(--paper);border:2px solid var(--c)}
+.av.fam{--c:var(--ink);background:var(--ink);color:var(--bg)}
+.av.lg{width:56px;height:56px;font-size:18px}
+.av.rumor{border-style:dashed}
+.ath{--c:var(--c-ath)} .mus{--c:var(--c-mus)} .scr{--c:var(--c-scr)} .oth{--c:var(--c-oth)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin:0 -2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 16px;min-height:44px;white-space:nowrap;cursor:pointer;font-weight:600;font-size:14px}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* file */
+.file{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:18px}
+.file-head{display:flex;flex-direction:column;gap:4px}
+.file-head h3{font-family:var(--display);font-size:clamp(32px,8vw,44px);line-height:1;margin:0;font-weight:700}
+.status{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:700;background:var(--accent-soft);color:var(--accent);margin-top:6px}
+.status.solo{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;border-block:1px solid var(--line);padding-block:12px}
+.stat{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+@media (max-width:420px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;min-height:36px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;position:relative}
+.tl::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:var(--line)}
+.ex{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;padding-block:10px;position:relative}
+.ex .av{position:relative;z-index:1}
+.ex-body{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ex-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ex-name{font-weight:700;font-size:16px;color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:2px;text-underline-offset:4px}
+.ex-name:hover{text-decoration-color:var(--accent)}
+.ex-name svg,.file-head h3 a svg{width:.7em;height:.7em;margin-left:4px;vertical-align:baseline;stroke:var(--muted);fill:none;stroke-width:2.2}
+a.av{text-decoration:none}
+.av{position:relative;overflow:hidden}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:50%}
+.file-head h3 a{color:inherit;text-decoration:none}
+.hint{font-size:12px;color:var(--muted)}
+.years{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:5px;border:1px solid currentColor;color:var(--c)}
+.tag.flag{color:var(--gold)}
+.tag.now{background:var(--accent);border-color:var(--accent);color:#fff}
+.note{font-size:14px;color:var(--muted);margin:0}
+.empty{color:var(--muted);font-style:italic;padding:8px 0}
+
+/* curse */
+.curse{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;border:2px solid var(--ink);border-radius:18px;padding:18px}
+.curse .big{font-family:var(--display);font-size:64px;line-height:.9;font-weight:700;color:var(--c-ath);font-variant-numeric:tabular-nums}
+.curse p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.curse strong{font-family:var(--display);font-size:20px;font-style:italic;font-weight:500}
+
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%;border:2px solid var(--c);display:inline-block}
+.legend i.d{border-style:dashed;--c:var(--muted)}
+footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+@media (prefers-reduced-motion:no-preference){.ex{animation:rise .35s ease both}@keyframes rise{from{transform:translateY(6px);opacity:.4}}}
+
+/* network */
+.netcard{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+#net{display:block;width:100%;aspect-ratio:1;max-width:100%;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+#net[style*="none"]{cursor:grab}
+.ring-guide{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:3 9}
+.e{fill:none;stroke-linecap:round;transition:opacity .25s}
+.e.fam{stroke:var(--gold);stroke-width:5}
+.e.par{stroke:var(--gold);stroke-width:2.5;stroke-dasharray:1 8;opacity:.9}
+.e.rom{stroke:var(--c);stroke-width:2;opacity:.6}
+.e.rom.mar{stroke-width:4;opacity:.85}
+.e.rom.cur{stroke:var(--accent);stroke-width:6;opacity:1}
+.e.rom.rum{stroke-dasharray:6 7}
+.e.out{stroke:var(--muted);stroke-width:1.5;opacity:.45}
+.e.out.mar{stroke-width:2.5;opacity:.6}
+.e.out.cur{stroke:var(--accent);stroke-width:2.5;opacity:.6}
+.e.out.rum{stroke-dasharray:5 6}
+.e.link{stroke:var(--accent);stroke-width:3;stroke-dasharray:3 7;opacity:.85}
+.n{cursor:pointer;transition:opacity .25s}
+.n .ring{fill:var(--paper);stroke:var(--c);stroke-width:3}
+.n.fam .ring{fill:var(--ink);stroke:var(--gold);stroke-width:4}
+.n.cur .ring{stroke:var(--accent);stroke-width:6}
+.n.rum .ring{stroke-dasharray:5 4}
+.n .ini{fill:var(--c);font-family:var(--body);font-weight:700;font-size:13px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.n.fam .ini{fill:var(--bg);font-size:24px}
+.n.root .ini{font-size:32px}
+.n .lab{fill:var(--ink);font-family:var(--body);font-weight:600;font-size:15px;dominant-baseline:central;paint-order:stroke;stroke:var(--paper);stroke-width:5px;stroke-linejoin:round}
+.n.fam .lab{font-family:var(--display);font-weight:700;font-size:40px;text-anchor:middle}
+.n.on3 .ring{fill:var(--paper);stroke:var(--muted);stroke-width:2}
+.n.on3.cur3 .ring{stroke:var(--accent);stroke-width:3}
+.n.on3.shared .ring{stroke:var(--accent);stroke-width:4;fill:var(--accent-soft)}
+.n.on3 .ini{fill:var(--muted);font-size:10px}
+.n.on3 .lab{font-size:13px;font-weight:500;fill:var(--muted)}
+.n.on3.shared .lab{fill:var(--accent);font-weight:700}
+.net.hide3 .on3,.net.hide3 .e.out,.net.hide3 .e.cross,.net.hide3 .rg3{display:none}
+#net .n:focus{outline:none}
+#net .n:focus-visible .ring{stroke:var(--accent);stroke-width:7}
+.net.focus .n:not(.on),.net.focus .e:not(.on),.net .dim{opacity:.1}
+.zoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--paper);font-size:22px;font-weight:600;line-height:1;cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.zoom svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.netinfo{padding:16px 18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;min-height:132px}
+.netinfo h3{font-family:var(--display);font-size:28px;margin:0;line-height:1.05}
+.netinfo h3 a{color:inherit;text-decoration:none}
+.netinfo h3 svg{width:.6em;height:.6em;margin-left:4px;stroke:var(--muted);fill:none;stroke-width:2.2}
+.pchips{display:flex;flex-wrap:wrap;gap:6px}
+.chip.p{color:var(--c);border-color:var(--c)}
+.jump{font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;align-self:flex-start;padding-block:6px}
+.elegend svg{width:26px;height:10px;overflow:visible}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow">Updated <span id="updated">October 2026</span></div>
+    <h1>The Kardashian <em>Love Files</em></h1>
+    <p class="dek">Every famous ex, husband and current flame across the Kardashian-Jenner family.</p>
+  </header>
+
+  <section aria-labelledby="net-h" style="display:flex;flex-direction:column;gap:12px">
+    <div class="sec-head"><h2 id="net-h">The network</h2><small>Tap anyone · pinch or use + to zoom</small></div>
+    <div class="filters" id="netFilters" role="group" aria-label="Highlight partners">
+      <button class="chip" data-f="all" aria-pressed="true">Everyone</button>
+      <button class="chip" data-f="cur" aria-pressed="false">Current couples</button>
+      <button class="chip" data-f="mar" aria-pressed="false">Married</button>
+      <button class="chip" data-f="ath" aria-pressed="false">Athletes</button>
+      <button class="chip" data-f="mus" aria-pressed="false">Music</button>
+      <button class="chip" data-f="scr" aria-pressed="false">Screen</button>
+      <button class="chip" id="ring3" aria-pressed="true">Outer ring</button>
+    </div>
+    <div class="netcard">
+      <svg id="net" class="net" role="group" aria-label="Network of the Kardashian-Jenner family and their partners" viewBox="-870.0 -870.0 1740.0 1740.0"><defs><clipPath id="clip58"><circle r="56"></circle></clipPath><clipPath id="clip42"><circle r="40"></circle></clipPath><clipPath id="clip22"><circle r="20"></circle></clipPath><clipPath id="clip15"><circle r="13"></circle></clipPath></defs><rect x="-3000" y="-3000" width="6000" height="6000" fill="transparent"></rect><circle class="ring-guide rg3" r="690"></circle><circle class="ring-guide" r="430"></circle><circle class="ring-guide" r="195"></circle><g><path data-i="15" class="e par" d="M429.6 18.5 Q320.4 88.8 171.4 93.1"></path><path data-i="16" class="e par" d="M429.6 18.5 Q308.8 -123.3 135.4 -140.3"></path><path data-i="17" class="e par" d="M429.6 18.5 Q263.9 202.3 58.7 186.0"></path><path data-i="18" class="e par" d="M429.6 18.5 Q171.1 -285.1 -99.0 -168.0"></path><path data-i="28" class="e par" d="M-129.3 410.1 Q-211.5 256.6 -171.4 93.1"></path><path data-i="29" class="e par" d="M-129.3 410.1 Q-303.7 135.3 -177.5 -80.8"></path><path data-i="45" class="e out" d="M93.6 -419.7 L-173.0 -668.0"></path><path data-i="46" class="e out rum link" d="M93.6 -419.7 L-99.9 -682.7"></path><path data-i="47" class="e out cur link" d="M-422.7 78.7 Q-122.4 -87.5 -99.9 -682.7"></path><path data-i="48" class="e out" d="M157.9 -400.0 L-25.4 -689.5"></path><path data-i="49" class="e out" d="M218.4 -370.4 L49.4 -688.2"></path><path data-i="50" class="e out" d="M218.4 -370.4 L123.6 -678.8"></path><path data-i="51" class="e out" d="M218.4 -370.4 L196.4 -661.5"></path><path data-i="52" class="e out link" d="M218.4 -370.4 L266.9 -636.3"></path><path data-i="53" class="e out rum link" d="M-429.8 11.8 Q-85.0 -124.2 266.9 -636.3"></path><path data-i="54" class="e out" d="M218.4 -370.4 L334.3 -603.6"></path><path data-i="55" class="e out link" d="M218.4 -370.4 L397.7 -563.8"></path><path data-i="56" class="e out link" d="M-243.9 354.1 Q123.5 86.1 397.7 -563.8"></path><path data-i="57" class="e out" d="M218.4 -370.4 L456.5 -517.4"></path><path data-i="58" class="e out" d="M218.4 -370.4 L509.9 -464.9"></path><path data-i="59" class="e out cur mar" d="M273.5 -331.8 L557.3 -406.8"></path><path data-i="60" class="e out" d="M273.5 -331.8 L598.1 -344.0"></path><path data-i="61" class="e out" d="M273.5 -331.8 L631.9 -277.1"></path><path data-i="62" class="e out" d="M273.5 -331.8 L658.3 -206.9"></path><path data-i="63" class="e out cur mar" d="M362.5 -231.3 L676.8 -134.2"></path><path data-i="64" class="e out cur mar" d="M394.1 -171.9 L687.4 -59.9"></path><path data-i="65" class="e out mar" d="M429.6 18.5 L689.8 15.1"></path><path data-i="66" class="e out mar" d="M429.6 18.5 L684.1 89.9"></path><path data-i="67" class="e out mar" d="M405.3 143.7 L661.5 196.2"></path><path data-i="68" class="e out mar" d="M405.3 143.7 L636.3 266.9"></path><path data-i="69" class="e out" d="M341.2 261.7 L600.0 340.7"></path><path data-i="70" class="e out" d="M341.2 261.7 L559.5 403.8"></path><path data-i="71" class="e out" d="M341.2 261.7 L512.3 462.2"></path><path data-i="72" class="e out" d="M249.5 350.2 L459.1 515.1"></path><path data-i="73" class="e out rum" d="M249.5 350.2 L400.4 561.9"></path><path data-i="74" class="e out" d="M249.5 350.2 L337.0 602.1"></path><path data-i="75" class="e out cur" d="M191.8 384.9 L269.6 635.2"></path><path data-i="76" class="e out mar" d="M129.3 410.1 L199.0 660.7"></path><path data-i="77" class="e out" d="M63.8 425.2 L126.1 678.4"></path><path data-i="78" class="e out" d="M63.8 425.2 L51.6 688.1"></path><path data-i="79" class="e out mar" d="M-129.3 410.1 L-119.7 679.5"></path><path data-i="80" class="e out mar" d="M-129.3 410.1 L-192.7 662.5"></path><path data-i="81" class="e out" d="M-243.9 354.1 L-263.5 637.7"></path><path data-i="82" class="e out rum" d="M-243.9 354.1 L-331.1 605.4"></path><path data-i="83" class="e out cur" d="M-296.2 311.7 L-394.8 565.9"></path><path data-i="84" class="e out cur rum" d="M-341.2 261.7 L-453.9 519.7"></path><path data-i="85" class="e out" d="M-377.9 205.2 L-507.6 467.4"></path><path data-i="86" class="e out" d="M-377.9 205.2 L-555.2 409.7"></path><path data-i="87" class="e out" d="M-405.3 143.7 L-596.4 347.1"></path><path data-i="88" class="e out" d="M-405.3 143.7 L-630.5 280.4"></path><path data-i="89" class="e out" d="M-422.7 78.7 L-657.1 210.5"></path><path data-i="90" class="e out cur" d="M-429.8 11.8 L-676.0 138.0"></path><path data-i="91" class="e out" d="M-429.8 11.8 L-687.0 64.0"></path><path data-i="92" class="e out" d="M-429.8 11.8 L-689.9 -10.7"></path><path data-i="93" class="e out" d="M-429.8 11.8 L-684.7 -85.4"></path><path data-i="94" class="e out" d="M-429.8 11.8 L-671.4 -159.0"></path><path data-i="95" class="e out" d="M-414.4 -114.8 L-650.3 -230.7"></path><path data-i="96" class="e out" d="M-414.4 -114.8 L-621.5 -299.8"></path><path data-i="97" class="e out rum" d="M-391.4 -178.1 L-585.4 -365.3"></path><path data-i="98" class="e out" d="M-358.8 -237.0 L-542.4 -426.5"></path><path data-i="99" class="e out" d="M-358.8 -237.0 L-493.1 -482.7"></path><path data-i="100" class="e out" d="M-358.8 -237.0 L-437.9 -533.2"></path><path data-i="101" class="e out cur mar" d="M-218.4 -370.4 L-377.6 -577.5"></path><path data-i="102" class="e out" d="M-218.4 -370.4 L-312.9 -615.0"></path><path data-i="103" class="e out cur mar" d="M-157.9 -400.0 L-244.5 -645.2"></path><path data-i="6" class="e rom ath cur" d="M135.4 -140.3 L93.6 -419.7"></path><path data-i="7" class="e rom ath" d="M135.4 -140.3 L157.9 -400.0"></path><path data-i="8" class="e rom scr" d="M135.4 -140.3 L218.4 -370.4"></path><path data-i="9" class="e rom mus mar" d="M135.4 -140.3 L273.5 -331.8"></path><path data-i="10" class="e rom ath mar" d="M135.4 -140.3 L321.9 -285.0"></path><path data-i="11" class="e rom ath" d="M135.4 -140.3 L362.5 -231.3"></path><path data-i="12" class="e rom mus" d="M135.4 -140.3 L394.1 -171.9"></path><path data-i="13" class="e rom oth mar" d="M135.4 -140.3 L416.1 -108.3"></path><path data-i="14" class="e rom oth mar" d="M0.0 0.0 L429.6 18.5"></path><path data-i="19" class="e rom mus cur mar" d="M171.4 93.1 L405.3 143.7"></path><path data-i="20" class="e rom oth" d="M171.4 93.1 L377.9 205.2"></path><path data-i="21" class="e rom scr" d="M171.4 93.1 L341.2 261.7"></path><path data-i="22" class="e rom ath" d="M58.7 186.0 L249.5 350.2"></path><path data-i="23" class="e rom ath" d="M58.7 186.0 L191.8 384.9"></path><path data-i="24" class="e rom mus" d="M58.7 186.0 L129.3 410.1"></path><path data-i="25" class="e rom ath mar" d="M58.7 186.0 L63.8 425.2"></path><path data-i="26" class="e rom ath" d="M58.7 186.0 L-3.4 430.0"></path><path data-i="27" class="e rom ath mar" d="M0.0 0.0 L-129.3 410.1"></path><path data-i="30" class="e rom scr cur" d="M-171.4 93.1 L-243.9 354.1"></path><path data-i="31" class="e rom mus" d="M-171.4 93.1 L-296.2 311.7"></path><path data-i="32" class="e rom ath" d="M-171.4 93.1 L-341.2 261.7"></path><path data-i="33" class="e rom ath" d="M-171.4 93.1 L-377.9 205.2"></path><path data-i="34" class="e rom ath" d="M-171.4 93.1 L-405.3 143.7"></path><path data-i="35" class="e rom mus rum" d="M-171.4 93.1 L-422.7 78.7"></path><path data-i="36" class="e rom mus" d="M-171.4 93.1 L-429.8 11.8"></path><path data-i="37" class="e rom scr cur" d="M-177.5 -80.8 L-414.4 -114.8"></path><path data-i="38" class="e rom mus" d="M-177.5 -80.8 L-391.4 -178.1"></path><path data-i="39" class="e rom mus" d="M-177.5 -80.8 L-358.8 -237.0"></path><path data-i="40" class="e rom scr" d="M-99.0 -168.0 L-273.5 -331.8"></path><path data-i="41" class="e rom mus" d="M-99.0 -168.0 L-218.4 -370.4"></path><path data-i="42" class="e rom mus" d="M-99.0 -168.0 L-157.9 -400.0"></path><path data-i="43" class="e rom oth cur" d="M0.0 0.0 L-33.7 -428.7"></path><path data-i="44" class="e cross link" d="M-358.8 -237.0 Q-111.9 -100.6 -273.5 -331.8"></path><path data-i="0" class="e fam" d="M0.0 0.0 L135.4 -140.3"></path><path data-i="1" class="e fam" d="M0.0 0.0 L171.4 93.1"></path><path data-i="2" class="e fam" d="M0.0 0.0 L58.7 186.0"></path><path data-i="3" class="e fam" d="M0.0 0.0 L-171.4 93.1"></path><path data-i="4" class="e fam" d="M0.0 0.0 L-177.5 -80.8"></path><path data-i="5" class="e fam" d="M0.0 0.0 L-99.0 -168.0"></path></g><g><g class="n on3" data-id="o0" data-photo="Nicole_Scherzinger" transform="translate(-173.0,-668.0)" tabindex="0" role="button" aria-label="Nicole Scherzinger, dated Lewis Hamilton"><circle class="ring" r="15"></circle><text class="ini">NS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(75.5) translate(-23,0)">Nicole Scherzinger</text></g><g class="n on3 rum shared" data-id="o1" data-photo="Rihanna" transform="translate(-99.9,-682.7)" tabindex="0" role="button" aria-label="Rihanna, linked to Lewis Hamilton and dating A$AP Rocky"><circle class="ring" r="15"></circle><text class="ini">R</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(81.7) translate(-23,0)">Rihanna</text></g><g class="n on3" data-id="o2" data-photo="Lauren_Wood" transform="translate(-25.4,-689.5)" tabindex="0" role="button" aria-label="Lauren Wood, dated Odell Beckham Jr."><circle class="ring" r="15"></circle><text class="ini">LW</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(87.9) translate(-23,0)">Lauren Wood</text></g><g class="n on3" data-id="o3" data-photo="Elsie_Hewitt" transform="translate(49.4,-688.2)" tabindex="0" role="button" aria-label="Elsie Hewitt, dated Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">EH</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-85.9) translate(23,0)">Elsie Hewitt</text></g><g class="n on3" data-id="o4" data-photo="Madelyn_Cline" transform="translate(123.6,-678.8)" tabindex="0" role="button" aria-label="Madelyn Cline, dated Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">MC</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-79.7) translate(23,0)">Madelyn Cline</text></g><g class="n on3" data-id="o5" data-photo="Chase_Sui_Wonders" transform="translate(196.4,-661.5)" tabindex="0" role="button" aria-label="Chase Sui Wonders, dated Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">CS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-73.5) translate(23,0)">Chase Sui Wonders</text></g><g class="n on3 shared" data-id="o6" data-photo="Emily_Ratajkowski" transform="translate(266.9,-636.3)" tabindex="0" role="button" aria-label="Emily Ratajkowski, dated Pete Davidson and linked to Harry Styles"><circle class="ring" r="15"></circle><text class="ini">ER</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-67.2) translate(23,0)">Emily Ratajkowski</text></g><g class="n on3" data-id="o7" data-photo="Phoebe_Dynevor" transform="translate(334.3,-603.6)" tabindex="0" role="button" aria-label="Phoebe Dynevor, dated Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">PD</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-61.0) translate(23,0)">Phoebe Dynevor</text></g><g class="n on3 shared" data-id="o8" data-photo="Kaia_Gerber" transform="translate(397.7,-563.8)" tabindex="0" role="button" aria-label="Kaia Gerber, dated Pete Davidson and dated Jacob Elordi"><circle class="ring" r="15"></circle><text class="ini">KG</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-54.8) translate(23,0)">Kaia Gerber</text></g><g class="n on3" data-id="o9" data-photo="Kate_Beckinsale" transform="translate(456.5,-517.4)" tabindex="0" role="button" aria-label="Kate Beckinsale, dated Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">KB</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-48.6) translate(23,0)">Kate Beckinsale</text></g><g class="n on3" data-id="o10" data-photo="Ariana_Grande" transform="translate(509.9,-464.9)" tabindex="0" role="button" aria-label="Ariana Grande, was engaged to Pete Davidson"><circle class="ring" r="15"></circle><text class="ini">AG</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-42.4) translate(23,0)">Ariana Grande</text></g><g class="n on3 cur3" data-id="o11" data-photo="Bianca_Censori" transform="translate(557.3,-406.8)" tabindex="0" role="button" aria-label="Bianca Censori, married to Kanye West"><circle class="ring" r="15"></circle><text class="ini">BC</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-36.1) translate(23,0)">Bianca Censori</text></g><g class="n on3" data-id="o12" data-photo="Julia_Fox" transform="translate(598.1,-344.0)" tabindex="0" role="button" aria-label="Julia Fox, dated Kanye West"><circle class="ring" r="15"></circle><text class="ini">JF</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-29.9) translate(23,0)">Julia Fox</text></g><g class="n on3" data-id="o13" data-photo="Amber_Rose" transform="translate(631.9,-277.1)" tabindex="0" role="button" aria-label="Amber Rose, dated Kanye West"><circle class="ring" r="15"></circle><text class="ini">AR</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-23.7) translate(23,0)">Amber Rose</text></g><g class="n on3" data-id="o14" data-photo="Alexis_Phifer" transform="translate(658.3,-206.9)" tabindex="0" role="button" aria-label="Alexis Phifer, was engaged to Kanye West"><circle class="ring" r="15"></circle><text class="ini">AP</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-17.4) translate(23,0)">Alexis Phifer</text></g><g class="n on3 cur3" data-id="o15" data-photo="Lilit_Avagyan" transform="translate(676.8,-134.2)" tabindex="0" role="button" aria-label="Lilit Avagyan, married to Reggie Bush"><circle class="ring" r="15"></circle><text class="ini">LA</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-11.2) translate(23,0)">Lilit Avagyan</text></g><g class="n on3 cur3" data-id="o16" data-photo="Princess_Love" transform="translate(687.4,-59.9)" tabindex="0" role="button" aria-label="Princess Love, married to Ray J"><circle class="ring" r="15"></circle><text class="ini">PL</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-5.0) translate(23,0)">Princess Love</text></g><g class="n on3" data-id="o17" data-photo="Ellen_Pierson" transform="translate(689.8,15.1)" tabindex="0" role="button" aria-label="Ellen Pierson, was married to Robert Kardashian"><circle class="ring" r="15"></circle><text class="ini">EP</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(1.3) translate(23,0)">Ellen Pierson</text></g><g class="n on3" data-id="o18" data-photo="Jan_Ashley" transform="translate(684.1,89.9)" tabindex="0" role="button" aria-label="Jan Ashley, was married to Robert Kardashian"><circle class="ring" r="15"></circle><text class="ini">JA</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(7.5) translate(23,0)">Jan Ashley</text></g><g class="n on3" data-id="o19" data-photo="Shanna_Moakler" transform="translate(661.5,196.2)" tabindex="0" role="button" aria-label="Shanna Moakler, was married to Travis Barker"><circle class="ring" r="15"></circle><text class="ini">SM</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(16.5) translate(23,0)">Shanna Moakler</text></g><g class="n on3" data-id="o20" data-photo="Melissa_Kennedy" transform="translate(636.3,266.9)" tabindex="0" role="button" aria-label="Melissa Kennedy, was married to Travis Barker"><circle class="ring" r="15"></circle><text class="ini">MK</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(22.8) translate(23,0)">Melissa Kennedy</text></g><g class="n on3" data-id="o21" data-photo="Amelia_Gray_Hamlin" transform="translate(600.0,340.7)" tabindex="0" role="button" aria-label="Amelia Gray Hamlin, dated Scott Disick"><circle class="ring" r="15"></circle><text class="ini">AG</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(29.6) translate(23,0)">Amelia Gray Hamlin</text></g><g class="n on3" data-id="o22" data-photo="Sofia_Richie" transform="translate(559.5,403.8)" tabindex="0" role="button" aria-label="Sofia Richie, dated Scott Disick"><circle class="ring" r="15"></circle><text class="ini">SR</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(35.8) translate(23,0)">Sofia Richie</text></g><g class="n on3" data-id="o23" data-photo="Chloe_Bartoli" transform="translate(512.3,462.2)" tabindex="0" role="button" aria-label="Chloe Bartoli, dated Scott Disick"><circle class="ring" r="15"></circle><text class="ini">CB</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(42.1) translate(23,0)">Chloe Bartoli</text></g><g class="n on3" data-id="o24" data-photo="Maralee_Nichols" transform="translate(459.1,515.1)" tabindex="0" role="button" aria-label="Maralee Nichols, dated Tristan Thompson"><circle class="ring" r="15"></circle><text class="ini">MN</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(48.3) translate(23,0)">Maralee Nichols</text></g><g class="n on3 rum" data-id="o25" data-photo="Jordyn_Woods" transform="translate(400.4,561.9)" tabindex="0" role="button" aria-label="Jordyn Woods, linked to Tristan Thompson"><circle class="ring" r="15"></circle><text class="ini">JW</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(54.5) translate(23,0)">Jordyn Woods</text></g><g class="n on3" data-id="o26" data-photo="Jordan_Craig" transform="translate(337.0,602.1)" tabindex="0" role="button" aria-label="Jordan Craig, dated Tristan Thompson"><circle class="ring" r="15"></circle><text class="ini">JC</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(60.8) translate(23,0)">Jordan Craig</text></g><g class="n on3 cur3" data-id="o27" data-photo="Paije_Speights" transform="translate(269.6,635.2)" tabindex="0" role="button" aria-label="Paije Speights, dating James Harden"><circle class="ring" r="15"></circle><text class="ini">PS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(67.0) translate(23,0)">Paije Speights</text></g><g class="n on3" data-id="o28" data-photo="Nadine_Santos" transform="translate(199.0,660.7)" tabindex="0" role="button" aria-label="Nadine Santos, was married to French Montana"><circle class="ring" r="15"></circle><text class="ini">NS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(73.2) translate(23,0)">Nadine Santos</text></g><g class="n on3" data-id="o29" data-photo="Sabrina_Parr" transform="translate(126.1,678.4)" tabindex="0" role="button" aria-label="Sabrina Parr, was engaged to Lamar Odom"><circle class="ring" r="15"></circle><text class="ini">SP</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(79.5) translate(23,0)">Sabrina Parr</text></g><g class="n on3" data-id="o30" data-photo="Liza_Morales" transform="translate(51.6,688.1)" tabindex="0" role="button" aria-label="Liza Morales, dated Lamar Odom"><circle class="ring" r="15"></circle><text class="ini">LM</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(85.7) translate(23,0)">Liza Morales</text></g><g class="n on3" data-id="o31" data-photo="Linda_Thompson" transform="translate(-119.7,679.5)" tabindex="0" role="button" aria-label="Linda Thompson, was married to Caitlyn Jenner"><circle class="ring" r="15"></circle><text class="ini">LT</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(280.0) translate(-23,0)">Linda Thompson</text></g><g class="n on3" data-id="o32" data-photo="Chrystie_Crownover" transform="translate(-192.7,662.5)" tabindex="0" role="button" aria-label="Chrystie Crownover, was married to Caitlyn Jenner"><circle class="ring" r="15"></circle><text class="ini">CC</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(286.2) translate(-23,0)">Chrystie Crownover</text></g><g class="n on3" data-id="o33" data-photo="Olivia_Jade" transform="translate(-263.5,637.7)" tabindex="0" role="button" aria-label="Olivia Jade, dated Jacob Elordi"><circle class="ring" r="15"></circle><text class="ini">OJ</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(292.4) translate(-23,0)">Olivia Jade</text></g><g class="n on3 rum" data-id="o34" data-photo="Zendaya" transform="translate(-331.1,605.4)" tabindex="0" role="button" aria-label="Zendaya, linked to Jacob Elordi"><circle class="ring" r="15"></circle><text class="ini">Z</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(298.7) translate(-23,0)">Zendaya</text></g><g class="n on3 cur3" data-id="o35" data-photo="Gabriela_Berlingeri" transform="translate(-394.8,565.9)" tabindex="0" role="button" aria-label="Gabriela Berlingeri, dating Bad Bunny"><circle class="ring" r="15"></circle><text class="ini">GB</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(304.9) translate(-23,0)">Gabriela Berlingeri</text></g><g class="n on3 cur3 rum" data-id="o36" data-photo="Irina_Shayk" transform="translate(-453.9,519.7)" tabindex="0" role="button" aria-label="Irina Shayk, linked to Devin Booker"><circle class="ring" r="15"></circle><text class="ini">IS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(311.1) translate(-23,0)">Irina Shayk</text></g><g class="n on3" data-id="o37" data-photo="Maya_Jama" transform="translate(-507.6,467.4)" tabindex="0" role="button" aria-label="Maya Jama, was engaged to Ben Simmons"><circle class="ring" r="15"></circle><text class="ini">MJ</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(317.4) translate(-23,0)">Maya Jama</text></g><g class="n on3" data-id="o38" data-photo="Tinashe" transform="translate(-555.2,409.7)" tabindex="0" role="button" aria-label="Tinashe, dated Ben Simmons"><circle class="ring" r="15"></circle><text class="ini">T</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(323.6) translate(-23,0)">Tinashe</text></g><g class="n on3" data-id="o39" data-photo="Francesca_Aiello" transform="translate(-596.4,347.1)" tabindex="0" role="button" aria-label="Francesca Aiello, was engaged to Blake Griffin"><circle class="ring" r="15"></circle><text class="ini">FA</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(329.8) translate(-23,0)">Francesca Aiello</text></g><g class="n on3" data-id="o40" data-photo="Brynn_Cameron" transform="translate(-630.5,280.4)" tabindex="0" role="button" aria-label="Brynn Cameron, dated Blake Griffin"><circle class="ring" r="15"></circle><text class="ini">BC</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(336.0) translate(-23,0)">Brynn Cameron</text></g><g class="n on3" data-id="o41" data-photo="Chanel_Iman" transform="translate(-657.1,210.5)" tabindex="0" role="button" aria-label="Chanel Iman, was engaged to A$AP Rocky"><circle class="ring" r="15"></circle><text class="ini">CI</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(342.2) translate(-23,0)">Chanel Iman</text></g><g class="n on3 cur3" data-id="o42" data-photo="Zoë_Kravitz" transform="translate(-676.0,138.0)" tabindex="0" role="button" aria-label="Zoë Kravitz, engaged to Harry Styles"><circle class="ring" r="15"></circle><text class="ini">ZK</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(348.5) translate(-23,0)">Zoë Kravitz</text></g><g class="n on3" data-id="o43" data-photo="Taylor_Russell" transform="translate(-687.0,64.0)" tabindex="0" role="button" aria-label="Taylor Russell, dated Harry Styles"><circle class="ring" r="15"></circle><text class="ini">TR</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(354.7) translate(-23,0)">Taylor Russell</text></g><g class="n on3" data-id="o44" data-photo="Olivia_Wilde" transform="translate(-689.9,-10.7)" tabindex="0" role="button" aria-label="Olivia Wilde, dated Harry Styles"><circle class="ring" r="15"></circle><text class="ini">OW</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(360.9) translate(-23,0)">Olivia Wilde</text></g><g class="n on3" data-id="o45" data-photo="Camille_Rowe" transform="translate(-684.7,-85.4)" tabindex="0" role="button" aria-label="Camille Rowe, dated Harry Styles"><circle class="ring" r="15"></circle><text class="ini">CR</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(367.1) translate(-23,0)">Camille Rowe</text></g><g class="n on3" data-id="o46" data-photo="Taylor_Swift" transform="translate(-671.4,-159.0)" tabindex="0" role="button" aria-label="Taylor Swift, dated Harry Styles"><circle class="ring" r="15"></circle><text class="ini">TS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(373.3) translate(-23,0)">Taylor Swift</text></g><g class="n on3" data-id="o47" data-photo="Eiza_González" transform="translate(-650.3,-230.7)" tabindex="0" role="button" aria-label="Eiza González, dated Timothée Chalamet"><circle class="ring" r="15"></circle><text class="ini">EG</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(379.5) translate(-23,0)">Eiza González</text></g><g class="n on3" data-id="o48" data-photo="Lily-Rose_Depp" transform="translate(-621.5,-299.8)" tabindex="0" role="button" aria-label="Lily-Rose Depp, dated Timothée Chalamet"><circle class="ring" r="15"></circle><text class="ini">LD</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(385.8) translate(-23,0)">Lily-Rose Depp</text></g><g class="n on3 rum" data-id="o49" data-photo="SZA" transform="translate(-585.4,-365.3)" tabindex="0" role="button" aria-label="SZA, linked to Travis Scott"><circle class="ring" r="15"></circle><text class="ini">S</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(392.0) translate(-23,0)">SZA</text></g><g class="n on3" data-id="o50" data-photo="Madelaine_Petsch" transform="translate(-542.4,-426.5)" tabindex="0" role="button" aria-label="Madelaine Petsch, dated Tyga"><circle class="ring" r="15"></circle><text class="ini">MP</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(398.2) translate(-23,0)">Madelaine Petsch</text></g><g class="n on3" data-id="o51" data-photo="Avril_Lavigne" transform="translate(-493.1,-482.7)" tabindex="0" role="button" aria-label="Avril Lavigne, dated Tyga"><circle class="ring" r="15"></circle><text class="ini">AL</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(404.4) translate(-23,0)">Avril Lavigne</text></g><g class="n on3" data-id="o52" data-photo="Camaryn_Swanson" transform="translate(-437.9,-533.2)" tabindex="0" role="button" aria-label="Camaryn Swanson, dated Tyga"><circle class="ring" r="15"></circle><text class="ini">CS</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(410.6) translate(-23,0)">Camaryn Swanson</text></g><g class="n on3 cur3" data-id="o53" data-photo="Taika_Waititi" transform="translate(-377.6,-577.5)" tabindex="0" role="button" aria-label="Taika Waititi, married to Rita Ora"><circle class="ring" r="15"></circle><text class="ini">TW</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(416.8) translate(-23,0)">Taika Waititi</text></g><g class="n on3" data-id="o54" data-photo="Calvin_Harris" transform="translate(-312.9,-615.0)" tabindex="0" role="button" aria-label="Calvin Harris, dated Rita Ora"><circle class="ring" r="15"></circle><text class="ini">CH</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(423.0) translate(-23,0)">Calvin Harris</text></g><g class="n on3 cur3" data-id="o55" data-photo="Israel_Houghton" transform="translate(-244.5,-645.2)" tabindex="0" role="button" aria-label="Israel Houghton, married to Adrienne Bailon"><circle class="ring" r="15"></circle><text class="ini">IH</text><image width="26" height="26" x="-13" y="-13" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip15)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(429.2) translate(-23,0)">Israel Houghton</text></g><g class="n pn ath cur" data-id="p0" data-photo="Lewis_Hamilton" transform="translate(93.6,-419.7)" tabindex="0" role="button" aria-label="Lewis Hamilton, Kim's partner"><circle class="ring" r="22"></circle><text class="ini">LH</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-77.4) translate(30,0)">Lewis Hamilton</text></g><g class="n pn ath" data-id="p1" data-photo="Odell_Beckham_Jr." transform="translate(157.9,-400.0)" tabindex="0" role="button" aria-label="Odell Beckham Jr., Kim's ex"><circle class="ring" r="22"></circle><text class="ini">OB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-68.5) translate(30,0)">Odell Beckham Jr.</text></g><g class="n pn scr" data-id="p2" data-photo="Pete_Davidson" transform="translate(218.4,-370.4)" tabindex="0" role="button" aria-label="Pete Davidson, Kim's ex"><circle class="ring" r="22"></circle><text class="ini">PD</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-59.5) translate(30,0)">Pete Davidson</text></g><g class="n pn mus" data-id="p3" data-photo="Kanye_West" transform="translate(273.5,-331.8)" tabindex="0" role="button" aria-label="Kanye West, Kim's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">KW</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-50.5) translate(30,0)">Kanye West</text></g><g class="n pn ath" data-id="p4" data-photo="Kris_Humphries" transform="translate(321.9,-285.0)" tabindex="0" role="button" aria-label="Kris Humphries, Kim's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">KH</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-41.5) translate(30,0)">Kris Humphries</text></g><g class="n pn ath" data-id="p5" data-photo="Reggie_Bush" transform="translate(362.5,-231.3)" tabindex="0" role="button" aria-label="Reggie Bush, Kim's ex"><circle class="ring" r="22"></circle><text class="ini">RB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-32.5) translate(30,0)">Reggie Bush</text></g><g class="n pn mus" data-id="p6" data-photo="Ray_J" transform="translate(394.1,-171.9)" tabindex="0" role="button" aria-label="Ray J, Kim's ex"><circle class="ring" r="22"></circle><text class="ini">RJ</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-23.6) translate(30,0)">Ray J</text></g><g class="n pn oth" data-id="p7" data-photo="Damon_Thomas_(record_producer)" transform="translate(416.1,-108.3)" tabindex="0" role="button" aria-label="Damon Thomas, Kim's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">DT</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(-14.6) translate(30,0)">Damon Thomas</text></g><g class="n pn oth" data-id="p8" data-photo="Robert_Kardashian" transform="translate(429.6,18.5)" tabindex="0" role="button" aria-label="Robert Kardashian, Kris's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">RK</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(2.5) translate(30,0)">Robert Kardashian</text></g><g class="n pn mus cur" data-id="p9" data-photo="Travis_Barker" transform="translate(405.3,143.7)" tabindex="0" role="button" aria-label="Travis Barker, Kourtney's spouse"><circle class="ring" r="22"></circle><text class="ini">TB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(19.5) translate(30,0)">Travis Barker</text></g><g class="n pn oth" data-id="p10" data-photo="Younes_Bendjima" transform="translate(377.9,205.2)" tabindex="0" role="button" aria-label="Younes Bendjima, Kourtney's ex"><circle class="ring" r="22"></circle><text class="ini">YB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(28.5) translate(30,0)">Younes Bendjima</text></g><g class="n pn scr" data-id="p11" data-photo="Scott_Disick" transform="translate(341.2,261.7)" tabindex="0" role="button" aria-label="Scott Disick, Kourtney's ex"><circle class="ring" r="22"></circle><text class="ini">SD</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(37.5) translate(30,0)">Scott Disick</text></g><g class="n pn ath" data-id="p12" data-photo="Tristan_Thompson" transform="translate(249.5,350.2)" tabindex="0" role="button" aria-label="Tristan Thompson, Khloé's ex"><circle class="ring" r="22"></circle><text class="ini">TT</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(54.5) translate(30,0)">Tristan Thompson</text></g><g class="n pn ath" data-id="p13" data-photo="James_Harden" transform="translate(191.8,384.9)" tabindex="0" role="button" aria-label="James Harden, Khloé's ex"><circle class="ring" r="22"></circle><text class="ini">JH</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(63.5) translate(30,0)">James Harden</text></g><g class="n pn mus" data-id="p14" data-photo="French_Montana" transform="translate(129.3,410.1)" tabindex="0" role="button" aria-label="French Montana, Khloé's ex"><circle class="ring" r="22"></circle><text class="ini">FM</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(72.5) translate(30,0)">French Montana</text></g><g class="n pn ath" data-id="p15" data-photo="Lamar_Odom" transform="translate(63.8,425.2)" tabindex="0" role="button" aria-label="Lamar Odom, Khloé's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">LO</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(81.5) translate(30,0)">Lamar Odom</text></g><g class="n pn ath" data-id="p16" data-photo="Rashad_McCants" transform="translate(-3.4,430.0)" tabindex="0" role="button" aria-label="Rashad McCants, Khloé's ex"><circle class="ring" r="22"></circle><text class="ini">RM</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="start" transform="rotate(90.4) translate(30,0)">Rashad McCants</text></g><g class="n pn ath" data-id="p17" data-photo="Caitlyn_Jenner" transform="translate(-129.3,410.1)" tabindex="0" role="button" aria-label="Caitlyn Jenner, Kris's ex-spouse"><circle class="ring" r="22"></circle><text class="ini">CJ</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(287.5) translate(-30,0)">Caitlyn Jenner</text></g><g class="n pn scr cur" data-id="p18" data-photo="Jacob_Elordi" transform="translate(-243.9,354.1)" tabindex="0" role="button" aria-label="Jacob Elordi, Kendall's partner"><circle class="ring" r="22"></circle><text class="ini">JE</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(304.6) translate(-30,0)">Jacob Elordi</text></g><g class="n pn mus" data-id="p19" data-photo="Bad_Bunny" transform="translate(-296.2,311.7)" tabindex="0" role="button" aria-label="Bad Bunny, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">BB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(313.5) translate(-30,0)">Bad Bunny</text></g><g class="n pn ath" data-id="p20" data-photo="Devin_Booker" transform="translate(-341.2,261.7)" tabindex="0" role="button" aria-label="Devin Booker, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">DB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(322.5) translate(-30,0)">Devin Booker</text></g><g class="n pn ath" data-id="p21" data-photo="Ben_Simmons" transform="translate(-377.9,205.2)" tabindex="0" role="button" aria-label="Ben Simmons, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">BS</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(331.5) translate(-30,0)">Ben Simmons</text></g><g class="n pn ath" data-id="p22" data-photo="Blake_Griffin" transform="translate(-405.3,143.7)" tabindex="0" role="button" aria-label="Blake Griffin, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">BG</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(340.5) translate(-30,0)">Blake Griffin</text></g><g class="n pn mus rum" data-id="p23" data-photo="ASAP_Rocky" transform="translate(-422.7,78.7)" tabindex="0" role="button" aria-label="A$AP Rocky, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">AR</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(349.5) translate(-30,0)">A$AP Rocky</text></g><g class="n pn mus" data-id="p24" data-photo="Harry_Styles" transform="translate(-429.8,11.8)" tabindex="0" role="button" aria-label="Harry Styles, Kendall's ex"><circle class="ring" r="22"></circle><text class="ini">HS</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(358.4) translate(-30,0)">Harry Styles</text></g><g class="n pn scr cur" data-id="p25" data-photo="Timothée_Chalamet" transform="translate(-414.4,-114.8)" tabindex="0" role="button" aria-label="Timothée Chalamet, Kylie's partner"><circle class="ring" r="22"></circle><text class="ini">TC</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(375.5) translate(-30,0)">Timothée Chalamet</text></g><g class="n pn mus" data-id="p26" data-photo="Travis_Scott" transform="translate(-391.4,-178.1)" tabindex="0" role="button" aria-label="Travis Scott, Kylie's ex"><circle class="ring" r="22"></circle><text class="ini">TS</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(384.5) translate(-30,0)">Travis Scott</text></g><g class="n pn mus" data-id="p27" data-photo="Tyga" transform="translate(-358.8,-237.0)" tabindex="0" role="button" aria-label="Tyga, Kylie's ex"><circle class="ring" r="22"></circle><text class="ini">T</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(393.4) translate(-30,0)">Tyga</text></g><g class="n pn scr" data-id="p28" data-photo="Blac_Chyna" transform="translate(-273.5,-331.8)" tabindex="0" role="button" aria-label="Blac Chyna, Rob's ex-fiancé(e)"><circle class="ring" r="22"></circle><text class="ini">BC</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(410.5) translate(-30,0)">Blac Chyna</text></g><g class="n pn mus" data-id="p29" data-photo="Rita_Ora" transform="translate(-218.4,-370.4)" tabindex="0" role="button" aria-label="Rita Ora, Rob's ex"><circle class="ring" r="22"></circle><text class="ini">RO</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(419.5) translate(-30,0)">Rita Ora</text></g><g class="n pn mus" data-id="p30" data-photo="Adrienne_Bailon" transform="translate(-157.9,-400.0)" tabindex="0" role="button" aria-label="Adrienne Bailon, Rob's ex"><circle class="ring" r="22"></circle><text class="ini">AB</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(428.5) translate(-30,0)">Adrienne Bailon</text></g><g class="n pn oth cur" data-id="p31" data-photo="Corey_Gamble" transform="translate(-33.7,-428.7)" tabindex="0" role="button" aria-label="Corey Gamble, Kris's partner"><circle class="ring" r="22"></circle><text class="ini">CG</text><image width="40" height="40" x="-20" y="-20" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip22)" style="visibility:hidden"></image><text class="lab" text-anchor="end" transform="rotate(445.5) translate(-30,0)">Corey Gamble</text></g><g class="n fam root" data-id="kris" data-photo="Kris_Jenner" transform="translate(0.0,0.0)" tabindex="0" role="button" aria-label="Kris Jenner"><circle class="ring" r="58"></circle><text class="ini">KJ</text><image width="112" height="112" x="-56" y="-56" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip58)" style="visibility:hidden"></image><text class="lab" y="94">Kris</text></g><g class="n fam" data-id="kim" data-photo="Kim_Kardashian" transform="translate(135.4,-140.3)" tabindex="0" role="button" aria-label="Kim Kardashian"><circle class="ring" r="42"></circle><text class="ini">KK</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Kim</text></g><g class="n fam" data-id="kourtney" data-photo="Kourtney_Kardashian" transform="translate(171.4,93.1)" tabindex="0" role="button" aria-label="Kourtney Kardashian"><circle class="ring" r="42"></circle><text class="ini">KK</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Kourtney</text></g><g class="n fam" data-id="khloe" data-photo="Khloé_Kardashian" transform="translate(58.7,186.0)" tabindex="0" role="button" aria-label="Khloé Kardashian"><circle class="ring" r="42"></circle><text class="ini">KK</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Khloé</text></g><g class="n fam" data-id="kendall" data-photo="Kendall_Jenner" transform="translate(-171.4,93.1)" tabindex="0" role="button" aria-label="Kendall Jenner"><circle class="ring" r="42"></circle><text class="ini">KJ</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Kendall</text></g><g class="n fam" data-id="kylie" data-photo="Kylie_Jenner" transform="translate(-177.5,-80.8)" tabindex="0" role="button" aria-label="Kylie Jenner"><circle class="ring" r="42"></circle><text class="ini">KJ</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Kylie</text></g><g class="n fam" data-id="rob" data-photo="Rob_Kardashian" transform="translate(-99.0,-168.0)" tabindex="0" role="button" aria-label="Rob Kardashian"><circle class="ring" r="42"></circle><text class="ini">RK</text><image width="80" height="80" x="-40" y="-40" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip42)" style="visibility:hidden"></image><text class="lab" y="78">Rob</text></g></g></svg>
+      <div class="zoom">
+        <button type="button" id="zIn" aria-label="Zoom in">+</button>
+        <button type="button" id="zOut" aria-label="Zoom out">−</button>
+        <button type="button" id="zReset" aria-label="Show the whole network"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></button>
+      </div>
+      <div class="netinfo" id="netInfo" aria-live="polite"><div class="eyebrow">How to read it</div>
+    <p class="note">Kris sits in the middle with her six kids on gold family lines. The second ring is everyone they've dated. The outer ring is who those partners dated, and pink dotted lines mark people shared between two branches of the family. Tap anyone to light up their connections.</p>
+    <p class="note"><b>7</b> family · <b>32</b> partners · <b>56</b> partners' partners · <b>4</b> shared links</p></div>
+    </div>
+    <div class="legend elegend">
+      <span><svg aria-hidden="true"><path class="e fam" d="M2 5H24"></path></svg>Family</span>
+      <span><svg aria-hidden="true"><path class="e par" d="M2 5H24"></path></svg>Parent</span>
+      <span><svg aria-hidden="true"><path class="e rom oth" d="M2 5H24"></path></svg>Dated</span>
+      <span><svg aria-hidden="true"><path class="e rom mar oth" d="M2 5H24"></path></svg>Married</span>
+      <span><svg aria-hidden="true"><path class="e rom cur" d="M2 5H24"></path></svg>Current</span>
+      <span><svg aria-hidden="true"><path class="e rom rum oth" d="M2 5H24"></path></svg>Rumored</span>
+      <span><svg aria-hidden="true"><path class="e out" d="M2 5H24"></path></svg>Partner's partner</span>
+      <span><svg aria-hidden="true"><path class="e link" d="M2 5H24"></path></svg>Shared ex</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="now-h">
+    <div class="sec-head"><h2 id="now-h">Who's with who right now</h2><small>Tap a card to jump to their history</small></div>
+    <div class="now" id="now" style="margin-top:12px"><button class="couple" data-id="kim" aria-label="Open Kim Kardashian's file">
+      <div class="pair"><div class="av fam" data-photo="Kim_Kardashian">KK</div>
+      <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg></div><div class="av ath" data-photo="Lewis_Hamilton">LH</div></div>
+      <b>Kim</b>
+      <span>Lewis Hamilton · since 2026</span>
+    </button><button class="couple" data-id="kourtney" aria-label="Open Kourtney Kardashian's file">
+      <div class="pair"><div class="av fam" data-photo="Kourtney_Kardashian">KK</div>
+      <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg></div><div class="av mus" data-photo="Travis_Barker">TB</div></div>
+      <b>Kourtney</b>
+      <span>Travis Barker · since 2021</span>
+    </button><button class="couple" data-id="khloe" aria-label="Open Khloé Kardashian's file">
+      <div class="pair"><div class="av fam" data-photo="Khloé_Kardashian">KK</div>
+      </div>
+      <b>Khloé</b>
+      <span class="single">Single · says she's been celibate for years</span>
+    </button><button class="couple" data-id="kendall" aria-label="Open Kendall Jenner's file">
+      <div class="pair"><div class="av fam" data-photo="Kendall_Jenner">KJ</div>
+      <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg></div><div class="av scr" data-photo="Jacob_Elordi">JE</div></div>
+      <b>Kendall</b>
+      <span>Jacob Elordi · since 2026</span>
+    </button><button class="couple" data-id="kylie" aria-label="Open Kylie Jenner's file">
+      <div class="pair"><div class="av fam" data-photo="Kylie_Jenner">KJ</div>
+      <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg></div><div class="av scr" data-photo="Timothée_Chalamet">TC</div></div>
+      <b>Kylie</b>
+      <span>Timothée Chalamet · since 2023</span>
+    </button><button class="couple" data-id="kris" aria-label="Open Kris Jenner's file">
+      <div class="pair"><div class="av fam" data-photo="Kris_Jenner">KJ</div>
+      <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg></div><div class="av oth" data-photo="Corey_Gamble">CG</div></div>
+      <b>Kris</b>
+      <span>Corey Gamble · since 2014</span>
+    </button><button class="couple" data-id="rob" aria-label="Open Rob Kardashian's file">
+      <div class="pair"><div class="av fam" data-photo="Rob_Kardashian">RK</div>
+      </div>
+      <b>Rob</b>
+      <span class="single">Single</span>
+    </button></div>
+  </section>
+
+  <section aria-labelledby="files-h" style="display:flex;flex-direction:column;gap:12px">
+    <div class="sec-head"><h2 id="files-h">Every love history</h2><small>Tap a name for their Wikipedia page</small></div>
+    <div class="legend">
+      <span><i class="ath"></i>Athlete</span><span><i class="mus"></i>Music</span>
+      <span><i class="scr"></i>Screen</span><span><i class="oth"></i>Other</span><span><i class="d"></i>Never confirmed</span>
+    </div>
+    <div id="files" style="display:flex;flex-direction:column;gap:20px"><article class="file" id="file-kim">
+    <div class="file-head">
+      <div class="eyebrow">Born 1980</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Kim%20Kardashian" target="_blank" rel="noopener">Kim Kardashian<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status"><svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg> With Lewis Hamilton</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>8</b><span>Partners</span></div>
+      <div class="stat"><b>3</b><span>Marriages</span></div>
+      <div class="stat"><b>4</b><span>Kids</span></div>
+      <div class="stat"><b>9<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex ath">
+        <a class="av ath" data-photo="Lewis_Hamilton" href="https://en.wikipedia.org/w/index.php?search=Lewis%20Hamilton" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">LH</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Lewis%20Hamilton" target="_blank" rel="noopener">Lewis Hamilton<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2026</span></div>
+          <div class="tags">
+            <span class="tag now">Current</span>
+            <span class="tag">F1 driver</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Linked late 2025; went public at Super Bowl LX in Feb 2026.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Odell_Beckham_Jr." href="https://en.wikipedia.org/w/index.php?search=Odell%20Beckham%20Jr." target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">OB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Odell%20Beckham%20Jr." target="_blank" rel="noopener">Odell Beckham Jr.<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2023–24</span></div>
+          <div class="tags">
+            
+            <span class="tag">NFL receiver</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Low-key romance, about a year.</p>
+        </div>
+      </li>
+      <li class="ex scr">
+        <a class="av scr" data-photo="Pete_Davidson" href="https://en.wikipedia.org/w/index.php?search=Pete%20Davidson" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">PD</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Pete%20Davidson" target="_blank" rel="noopener">Pete Davidson<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2021–22</span></div>
+          <div class="tags">
+            
+            <span class="tag">Comedian</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Started after she hosted SNL.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Kanye_West" href="https://en.wikipedia.org/w/index.php?search=Kanye%20West" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">KW</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Kanye%20West" target="_blank" rel="noopener">Kanye West<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2012–21</span></div>
+          <div class="tags">
+            
+            <span class="tag">Rapper</span>
+            <span class="tag flag">Married</span>
+            
+            <span class="tag flag">4 kids</span>
+            
+          </div>
+          <p class="note">Married 2014. North, Saint, Chicago and Psalm.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Kris_Humphries" href="https://en.wikipedia.org/w/index.php?search=Kris%20Humphries" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">KH</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Kris%20Humphries" target="_blank" rel="noopener">Kris Humphries<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2010–11</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            <span class="tag flag">Married</span>
+            
+            
+            
+          </div>
+          <p class="note">The famous 72-day marriage.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Reggie_Bush" href="https://en.wikipedia.org/w/index.php?search=Reggie%20Bush" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">RB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Reggie%20Bush" target="_blank" rel="noopener">Reggie Bush<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2007–10</span></div>
+          <div class="tags">
+            
+            <span class="tag">NFL running back</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">On and off for three years.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Ray_J" href="https://en.wikipedia.org/w/index.php?search=Ray%20J" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">RJ</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Ray%20J" target="_blank" rel="noopener">Ray J<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2003–06</span></div>
+          <div class="tags">
+            
+            <span class="tag">Singer</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex oth">
+        <a class="av oth" data-photo="Damon_Thomas_(record_producer)" href="https://en.wikipedia.org/wiki/Damon%20Thomas%20(record%20producer)" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">DT</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/wiki/Damon%20Thomas%20(record%20producer)" target="_blank" rel="noopener">Damon Thomas<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2000–04</span></div>
+          <div class="tags">
+            
+            <span class="tag">Music producer</span>
+            <span class="tag flag">Married</span>
+            
+            
+            
+          </div>
+          <p class="note">Her first husband; eloped at 19.</p>
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-kourtney">
+    <div class="file-head">
+      <div class="eyebrow">Born 1979</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Kourtney%20Kardashian" target="_blank" rel="noopener">Kourtney Kardashian<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status"><svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg> With Travis Barker</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>Partners</span></div>
+      <div class="stat"><b>1</b><span>Marriages</span></div>
+      <div class="stat"><b>4</b><span>Kids</span></div>
+      <div class="stat"><b>9<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex mus">
+        <a class="av mus" data-photo="Travis_Barker" href="https://en.wikipedia.org/w/index.php?search=Travis%20Barker" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">TB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Travis%20Barker" target="_blank" rel="noopener">Travis Barker<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2021–now</span></div>
+          <div class="tags">
+            <span class="tag now">Current</span>
+            <span class="tag">Blink-182 drummer</span>
+            <span class="tag flag">Married</span>
+            
+            <span class="tag flag">1 kid</span>
+            
+          </div>
+          <p class="note">Married 2022. Son Rocky born 2023.</p>
+        </div>
+      </li>
+      <li class="ex oth">
+        <a class="av oth" data-photo="Younes_Bendjima" href="https://en.wikipedia.org/w/index.php?search=Younes%20Bendjima" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">YB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Younes%20Bendjima" target="_blank" rel="noopener">Younes Bendjima<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2016–18</span></div>
+          <div class="tags">
+            
+            <span class="tag">Model</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Brief reunion in 2019.</p>
+        </div>
+      </li>
+      <li class="ex scr">
+        <a class="av scr" data-photo="Scott_Disick" href="https://en.wikipedia.org/w/index.php?search=Scott%20Disick" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">SD</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Scott%20Disick" target="_blank" rel="noopener">Scott Disick<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2006–15</span></div>
+          <div class="tags">
+            
+            <span class="tag">TV personality</span>
+            
+            
+            <span class="tag flag">3 kids</span>
+            
+          </div>
+          <p class="note">On and off for nine years. Mason, Penelope and Reign.</p>
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-khloe">
+    <div class="file-head">
+      <div class="eyebrow">Born 1984</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Khlo%C3%A9%20Kardashian" target="_blank" rel="noopener">Khloé Kardashian<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status solo">Single · says she's been celibate for years</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>Partners</span></div>
+      <div class="stat"><b>1</b><span>Marriages</span></div>
+      <div class="stat"><b>2</b><span>Kids</span></div>
+      <div class="stat"><b>7<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex ath">
+        <a class="av ath" data-photo="Tristan_Thompson" href="https://en.wikipedia.org/w/index.php?search=Tristan%20Thompson" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">TT</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Tristan%20Thompson" target="_blank" rel="noopener">Tristan Thompson<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2016–21</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            <span class="tag flag">2 kids</span>
+            
+          </div>
+          <p class="note">On and off. Daughter True and son Tatum.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="James_Harden" href="https://en.wikipedia.org/w/index.php?search=James%20Harden" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">JH</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=James%20Harden" target="_blank" rel="noopener">James Harden<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2015</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="French_Montana" href="https://en.wikipedia.org/w/index.php?search=French%20Montana" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">FM</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=French%20Montana" target="_blank" rel="noopener">French Montana<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2014</span></div>
+          <div class="tags">
+            
+            <span class="tag">Rapper</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Lamar_Odom" href="https://en.wikipedia.org/w/index.php?search=Lamar%20Odom" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">LO</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Lamar%20Odom" target="_blank" rel="noopener">Lamar Odom<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2009–16</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            <span class="tag flag">Married</span>
+            
+            
+            
+          </div>
+          <p class="note">Married a month after meeting. Divorce final 2016.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Rashad_McCants" href="https://en.wikipedia.org/w/index.php?search=Rashad%20McCants" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">RM</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Rashad%20McCants" target="_blank" rel="noopener">Rashad McCants<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2008–09</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-kendall">
+    <div class="file-head">
+      <div class="eyebrow">Born 1995</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Kendall%20Jenner" target="_blank" rel="noopener">Kendall Jenner<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status"><svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg> With Jacob Elordi</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>7</b><span>Partners</span></div>
+      <div class="stat"><b>0</b><span>Marriages</span></div>
+      <div class="stat"><b>0</b><span>Kids</span></div>
+      <div class="stat"><b>3<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex scr">
+        <a class="av scr" data-photo="Jacob_Elordi" href="https://en.wikipedia.org/w/index.php?search=Jacob%20Elordi" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">JE</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Jacob%20Elordi" target="_blank" rel="noopener">Jacob Elordi<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2026</span></div>
+          <div class="tags">
+            <span class="tag now">Current</span>
+            <span class="tag">Actor</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">First linked at Coachella, April 2026.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Bad_Bunny" href="https://en.wikipedia.org/w/index.php?search=Bad%20Bunny" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">BB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Bad%20Bunny" target="_blank" rel="noopener">Bad Bunny<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2023</span></div>
+          <div class="tags">
+            
+            <span class="tag">Singer</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Split December 2023.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Devin_Booker" href="https://en.wikipedia.org/w/index.php?search=Devin%20Booker" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">DB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Devin%20Booker" target="_blank" rel="noopener">Devin Booker<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2020–22</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Her longest public relationship.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Ben_Simmons" href="https://en.wikipedia.org/w/index.php?search=Ben%20Simmons" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">BS</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Ben%20Simmons" target="_blank" rel="noopener">Ben Simmons<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2018–19</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Blake_Griffin" href="https://en.wikipedia.org/w/index.php?search=Blake%20Griffin" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">BG</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Blake%20Griffin" target="_blank" rel="noopener">Blake Griffin<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2017</span></div>
+          <div class="tags">
+            
+            <span class="tag">NBA player</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus rumor" data-photo="ASAP_Rocky" href="https://en.wikipedia.org/wiki/ASAP%20Rocky" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">AR</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/wiki/ASAP%20Rocky" target="_blank" rel="noopener">A$AP Rocky<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2017</span></div>
+          <div class="tags">
+            
+            <span class="tag">Rapper</span>
+            
+            
+            
+            <span class="tag flag">Rumored</span>
+          </div>
+          <p class="note">Widely reported, never confirmed.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Harry_Styles" href="https://en.wikipedia.org/w/index.php?search=Harry%20Styles" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">HS</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Harry%20Styles" target="_blank" rel="noopener">Harry Styles<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2013–16</span></div>
+          <div class="tags">
+            
+            <span class="tag">Singer</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">On and off. Her first high-profile romance.</p>
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-kylie">
+    <div class="file-head">
+      <div class="eyebrow">Born 1997</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Kylie%20Jenner" target="_blank" rel="noopener">Kylie Jenner<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status"><svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg> With Timothée Chalamet</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>Partners</span></div>
+      <div class="stat"><b>0</b><span>Marriages</span></div>
+      <div class="stat"><b>2</b><span>Kids</span></div>
+      <div class="stat"><b>6<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex scr">
+        <a class="av scr" data-photo="Timothée_Chalamet" href="https://en.wikipedia.org/w/index.php?search=Timoth%C3%A9e%20Chalamet" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">TC</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Timoth%C3%A9e%20Chalamet" target="_blank" rel="noopener">Timothée Chalamet<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2023–now</span></div>
+          <div class="tags">
+            <span class="tag now">Current</span>
+            <span class="tag">Actor</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Thanked his "partner of three years" at the 2026 Critics Choice Awards.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Travis_Scott" href="https://en.wikipedia.org/w/index.php?search=Travis%20Scott" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">TS</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Travis%20Scott" target="_blank" rel="noopener">Travis Scott<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2017–23</span></div>
+          <div class="tags">
+            
+            <span class="tag">Rapper</span>
+            
+            
+            <span class="tag flag">2 kids</span>
+            
+          </div>
+          <p class="note">On and off. Stormi and Aire.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Tyga" href="https://en.wikipedia.org/w/index.php?search=Tyga" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">T</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Tyga" target="_blank" rel="noopener">Tyga<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2014–17</span></div>
+          <div class="tags">
+            
+            <span class="tag">Rapper</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-kris">
+    <div class="file-head">
+      <div class="eyebrow">Born 1955</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Kris%20Jenner" target="_blank" rel="noopener">Kris Jenner<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status"><svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"></path></svg> With Corey Gamble</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>Partners</span></div>
+      <div class="stat"><b>2</b><span>Marriages</span></div>
+      <div class="stat"><b>6</b><span>Kids</span></div>
+      <div class="stat"><b>24<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex oth">
+        <a class="av oth" data-photo="Corey_Gamble" href="https://en.wikipedia.org/w/index.php?search=Corey%20Gamble" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">CG</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Corey%20Gamble" target="_blank" rel="noopener">Corey Gamble<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2014–now</span></div>
+          <div class="tags">
+            <span class="tag now">Current</span>
+            <span class="tag">Talent manager</span>
+            
+            
+            
+            
+          </div>
+          <p class="note">Together over a decade.</p>
+        </div>
+      </li>
+      <li class="ex ath">
+        <a class="av ath" data-photo="Caitlyn_Jenner" href="https://en.wikipedia.org/w/index.php?search=Caitlyn%20Jenner" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">CJ</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Caitlyn%20Jenner" target="_blank" rel="noopener">Caitlyn Jenner<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">1991–15</span></div>
+          <div class="tags">
+            
+            <span class="tag">Olympic champion</span>
+            <span class="tag flag">Married</span>
+            
+            <span class="tag flag">2 kids</span>
+            
+          </div>
+          <p class="note">Kendall and Kylie.</p>
+        </div>
+      </li>
+      <li class="ex oth">
+        <a class="av oth" data-photo="Robert_Kardashian" href="https://en.wikipedia.org/w/index.php?search=Robert%20Kardashian" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">RK</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Robert%20Kardashian" target="_blank" rel="noopener">Robert Kardashian<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">1978–91</span></div>
+          <div class="tags">
+            
+            <span class="tag">Attorney</span>
+            <span class="tag flag">Married</span>
+            
+            <span class="tag flag">4 kids</span>
+            
+          </div>
+          <p class="note">Kourtney, Kim, Khloé and Rob.</p>
+        </div>
+      </li>
+    </ol></article><article class="file" id="file-rob">
+    <div class="file-head">
+      <div class="eyebrow">Born 1987</div>
+      <h3><a href="https://en.wikipedia.org/w/index.php?search=Rob%20Kardashian" target="_blank" rel="noopener">Rob Kardashian<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a></h3>
+      <span class="status solo">Single</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>Partners</span></div>
+      <div class="stat"><b>0</b><span>Marriages</span></div>
+      <div class="stat"><b>1</b><span>Kids</span></div>
+      <div class="stat"><b>2<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      
+      <li class="ex scr">
+        <a class="av scr" data-photo="Blac_Chyna" href="https://en.wikipedia.org/w/index.php?search=Blac%20Chyna" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">BC</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Blac%20Chyna" target="_blank" rel="noopener">Blac Chyna<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2016–17</span></div>
+          <div class="tags">
+            
+            <span class="tag">Model, TV</span>
+            
+            <span class="tag flag">Engaged</span>
+            <span class="tag flag">1 kid</span>
+            
+          </div>
+          <p class="note">Engaged. Daughter Dream.</p>
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Rita_Ora" href="https://en.wikipedia.org/w/index.php?search=Rita%20Ora" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">RO</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Rita%20Ora" target="_blank" rel="noopener">Rita Ora<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2012</span></div>
+          <div class="tags">
+            
+            <span class="tag">Singer</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+      <li class="ex mus">
+        <a class="av mus" data-photo="Adrienne_Bailon" href="https://en.wikipedia.org/w/index.php?search=Adrienne%20Bailon" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">AB</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="https://en.wikipedia.org/w/index.php?search=Adrienne%20Bailon" target="_blank" rel="noopener">Adrienne Bailon<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a><span class="years">2007–09</span></div>
+          <div class="tags">
+            
+            <span class="tag">Singer, TV host</span>
+            
+            
+            
+            
+          </div>
+          
+        </div>
+      </li>
+    </ol></article></div>
+  </section>
+
+  <section class="curse" aria-label="Kardashian curse tally">
+    <div class="big" id="curseN">12</div>
+    <div><strong>The "Kardashian curse" tally</strong><p id="curseP">Pro athletes the sisters and Kris have dated, 8 of them from the NBA. Khloé alone accounts for 4.</p></div>
+  </section>
+
+  <footer>Relationship dates are as publicly reported and rounded to the year. Last checked October 2026. Photos load from Wikipedia and Wikimedia Commons under their free licenses.</footer>
+</div>
+
+<script>
+/* =====================================================================
+   EDIT HERE — all content lives in this block.
+   type: "ath" athlete · "mus" music · "scr" actor/TV/comedy · "oth" other
+   end: null = still together · rumored: true = never confirmed
+   married / engaged / kids: optional flags shown as tags
+   page: optional exact Wikipedia article title (used for the photo and link)
+   parentOf: on Kris's partners, the family ids they're a parent of (draws parent lines)
+   The outer ring (partners' own partners) lives in OUTER, just below FAMILY.
+   ===================================================================== */
+const UPDATED = "October 2026";
+
+const FAMILY = [
+  { id:"kim", name:"Kim Kardashian", short:"Kim", born:1980, partners:[
+    { name:"Lewis Hamilton", role:"F1 driver", type:"ath", start:2026, end:null, note:"Linked late 2025; went public at Super Bowl LX in Feb 2026." },
+    { name:"Odell Beckham Jr.", role:"NFL receiver", type:"ath", start:2023, end:2024, note:"Low-key romance, about a year." },
+    { name:"Pete Davidson", role:"Comedian", type:"scr", start:2021, end:2022, note:"Started after she hosted SNL." },
+    { name:"Kanye West", role:"Rapper", type:"mus", start:2012, end:2021, married:true, kids:4, note:"Married 2014. North, Saint, Chicago and Psalm." },
+    { name:"Kris Humphries", role:"NBA player", type:"ath", start:2010, end:2011, married:true, note:"The famous 72-day marriage." },
+    { name:"Reggie Bush", role:"NFL running back", type:"ath", start:2007, end:2010, note:"On and off for three years." },
+    { name:"Ray J", role:"Singer", type:"mus", start:2003, end:2006, note:"" },
+    { name:"Damon Thomas", page:"Damon Thomas (record producer)", role:"Music producer", type:"oth", start:2000, end:2004, married:true, note:"Her first husband; eloped at 19." },
+  ]},
+  { id:"kourtney", name:"Kourtney Kardashian", short:"Kourtney", born:1979, partners:[
+    { name:"Travis Barker", role:"Blink-182 drummer", type:"mus", start:2021, end:null, married:true, kids:1, note:"Married 2022. Son Rocky born 2023." },
+    { name:"Younes Bendjima", role:"Model", type:"oth", start:2016, end:2018, note:"Brief reunion in 2019." },
+    { name:"Scott Disick", role:"TV personality", type:"scr", start:2006, end:2015, kids:3, note:"On and off for nine years. Mason, Penelope and Reign." },
+  ]},
+  { id:"khloe", name:"Khloé Kardashian", short:"Khloé", born:1984, status:"Single · says she's been celibate for years", partners:[
+    { name:"Tristan Thompson", role:"NBA player", type:"ath", start:2016, end:2021, kids:2, note:"On and off. Daughter True and son Tatum." },
+    { name:"James Harden", role:"NBA player", type:"ath", start:2015, end:2015, note:"" },
+    { name:"French Montana", role:"Rapper", type:"mus", start:2014, end:2014, note:"" },
+    { name:"Lamar Odom", role:"NBA player", type:"ath", start:2009, end:2016, married:true, note:"Married a month after meeting. Divorce final 2016." },
+    { name:"Rashad McCants", role:"NBA player", type:"ath", start:2008, end:2009, note:"" },
+  ]},
+  { id:"kendall", name:"Kendall Jenner", short:"Kendall", born:1995, partners:[
+    { name:"Jacob Elordi", role:"Actor", type:"scr", start:2026, end:null, note:"First linked at Coachella, April 2026." },
+    { name:"Bad Bunny", role:"Singer", type:"mus", start:2023, end:2023, note:"Split December 2023." },
+    { name:"Devin Booker", role:"NBA player", type:"ath", start:2020, end:2022, note:"Her longest public relationship." },
+    { name:"Ben Simmons", role:"NBA player", type:"ath", start:2018, end:2019, note:"" },
+    { name:"Blake Griffin", role:"NBA player", type:"ath", start:2017, end:2017, note:"" },
+    { name:"A$AP Rocky", page:"ASAP Rocky", role:"Rapper", type:"mus", start:2017, end:2017, rumored:true, note:"Widely reported, never confirmed." },
+    { name:"Harry Styles", role:"Singer", type:"mus", start:2013, end:2016, note:"On and off. Her first high-profile romance." },
+  ]},
+  { id:"kylie", name:"Kylie Jenner", short:"Kylie", born:1997, partners:[
+    { name:"Timothée Chalamet", role:"Actor", type:"scr", start:2023, end:null, note:"Thanked his \"partner of three years\" at the 2026 Critics Choice Awards." },
+    { name:"Travis Scott", role:"Rapper", type:"mus", start:2017, end:2023, kids:2, note:"On and off. Stormi and Aire." },
+    { name:"Tyga", role:"Rapper", type:"mus", start:2014, end:2017, note:"" },
+  ]},
+  { id:"kris", name:"Kris Jenner", short:"Kris", born:1955, partners:[
+    { name:"Corey Gamble", role:"Talent manager", type:"oth", start:2014, end:null, note:"Together over a decade." },
+    { name:"Caitlyn Jenner", role:"Olympic champion", type:"ath", start:1991, end:2015, married:true, kids:2, parentOf:["kendall","kylie"], note:"Kendall and Kylie." },
+    { name:"Robert Kardashian", role:"Attorney", type:"oth", start:1978, end:1991, married:true, kids:4, parentOf:["kourtney","kim","khloe","rob"], note:"Kourtney, Kim, Khloé and Rob." },
+  ]},
+  { id:"rob", name:"Rob Kardashian", short:"Rob", born:1987, status:"Single", partners:[
+    { name:"Blac Chyna", role:"Model, TV", type:"scr", start:2016, end:2017, engaged:true, kids:1, note:"Engaged. Daughter Dream." },
+    { name:"Rita Ora", role:"Singer", type:"mus", start:2012, end:2012, note:"" },
+    { name:"Adrienne Bailon", role:"Singer, TV host", type:"mus", start:2007, end:2009, note:"" },
+  ]},
+];
+
+/* Outer ring: each partner's own famous partners, keyed by the partner's exact name above.
+   Same fields as a partner (role/type optional). A name that appears twice becomes one shared node. */
+const OUTER = {
+  "Lewis Hamilton": [
+    { name:"Nicole Scherzinger", start:2007, end:2015, note:"On and off for eight years." },
+    { name:"Rihanna", start:2014, end:2014, rumored:true, note:"Linked in 2014, never confirmed." },
+  ],
+  "Odell Beckham Jr.": [
+    { name:"Lauren Wood", start:2020, end:2023, kids:1, note:"Son Zydn, born 2022." },
+  ],
+  "Pete Davidson": [
+    { name:"Elsie Hewitt", start:2025, end:2026, kids:1, note:"Daughter Scottie Rose, born December 2025. They now co-parent." },
+    { name:"Madelyn Cline", start:2024, end:2024 },
+    { name:"Chase Sui Wonders", start:2023, end:2023 },
+    { name:"Emily Ratajkowski", start:2022, end:2023 },
+    { name:"Phoebe Dynevor", start:2021, end:2021 },
+    { name:"Kaia Gerber", start:2019, end:2020 },
+    { name:"Kate Beckinsale", start:2019, end:2019 },
+    { name:"Ariana Grande", start:2018, end:2018, engaged:true, note:"Engaged weeks after they got together." },
+  ],
+  "Kanye West": [
+    { name:"Bianca Censori", start:2022, end:null, married:true, note:"Married in December 2022." },
+    { name:"Julia Fox", start:2022, end:2022 },
+    { name:"Amber Rose", start:2008, end:2010 },
+    { name:"Alexis Phifer", start:2002, end:2008, engaged:true },
+  ],
+  "Reggie Bush": [
+    { name:"Lilit Avagyan", start:2010, end:null, married:true, note:"Married 2014; three kids." },
+  ],
+  "Ray J": [
+    { name:"Princess Love", start:2014, end:null, married:true, kids:2, note:"Married 2016. Several divorce filings, but they marked 10 years in 2026." },
+  ],
+  "Travis Barker": [
+    { name:"Shanna Moakler", start:2003, end:2008, married:true, kids:2, note:"Married 2004." },
+    { name:"Melissa Kennedy", start:2001, end:2002, married:true },
+  ],
+  "Scott Disick": [
+    { name:"Amelia Gray Hamlin", start:2020, end:2021 },
+    { name:"Sofia Richie", start:2017, end:2020, note:"On and off for three years." },
+    { name:"Chloe Bartoli", start:2015, end:2015 },
+  ],
+  "Tristan Thompson": [
+    { name:"Maralee Nichols", start:2021, end:2021, kids:1, note:"Son Theo, conceived while he was with Khloé." },
+    { name:"Jordyn Woods", start:2019, end:2019, rumored:true, note:"The 2019 kiss scandal." },
+    { name:"Jordan Craig", start:2013, end:2016, kids:1, note:"Son Prince, born 2016." },
+  ],
+  "James Harden": [
+    { name:"Paije Speights", end:null, note:"His current girlfriend." },
+  ],
+  "French Montana": [
+    { name:"Nadine Santos", start:2007, end:2014, married:true, kids:1 },
+  ],
+  "Lamar Odom": [
+    { name:"Sabrina Parr", start:2019, end:2020, engaged:true },
+    { name:"Liza Morales", start:1998, end:2006, kids:3 },
+  ],
+  "Jacob Elordi": [
+    { name:"Olivia Jade", start:2022, end:2025, note:"On and off." },
+    { name:"Kaia Gerber", start:2021, end:2022 },
+    { name:"Zendaya", start:2020, end:2020, rumored:true },
+  ],
+  "Bad Bunny": [
+    { name:"Gabriela Berlingeri", start:2017, end:null, note:"Together 2017–2022; reportedly back together in 2026." },
+  ],
+  "Devin Booker": [
+    { name:"Irina Shayk", start:2026, end:null, rumored:true, note:"Reported in July 2026; neither has confirmed." },
+  ],
+  "Ben Simmons": [
+    { name:"Maya Jama", start:2021, end:2022, engaged:true },
+    { name:"Tinashe", start:2017, end:2017 },
+  ],
+  "Blake Griffin": [
+    { name:"Francesca Aiello", start:2018, end:2019, engaged:true },
+    { name:"Brynn Cameron", start:2012, end:2017, kids:2 },
+  ],
+  "A$AP Rocky": [
+    { name:"Rihanna", start:2020, end:null, kids:3, note:"Three kids together." },
+    { name:"Chanel Iman", start:2012, end:2014, engaged:true },
+  ],
+  "Harry Styles": [
+    { name:"Zoë Kravitz", start:2025, end:null, engaged:true, note:"Dating since August 2025; reported engaged in April 2026." },
+    { name:"Taylor Russell", start:2023, end:2024 },
+    { name:"Emily Ratajkowski", start:2023, end:2023, rumored:true, note:"Photographed kissing in Tokyo." },
+    { name:"Olivia Wilde", start:2021, end:2022 },
+    { name:"Camille Rowe", start:2017, end:2018 },
+    { name:"Taylor Swift", start:2012, end:2013 },
+  ],
+  "Timothée Chalamet": [
+    { name:"Eiza González", start:2020, end:2020 },
+    { name:"Lily-Rose Depp", start:2018, end:2020 },
+  ],
+  "Travis Scott": [
+    { name:"SZA", rumored:true, note:"Long-running rumors, never confirmed." },
+  ],
+  "Tyga": [
+    { name:"Madelaine Petsch", start:2025, note:"Went public at Coachella 2025." },
+    { name:"Avril Lavigne", start:2023, end:2023 },
+    { name:"Camaryn Swanson", start:2019, end:2023, note:"On and off." },
+    { name:"Blac Chyna", start:2011, end:2014, engaged:true, kids:1, note:"Son King Cairo." },
+  ],
+  "Caitlyn Jenner": [
+    { name:"Linda Thompson", start:1981, end:1986, married:true, kids:2, note:"Sons Brandon and Brody." },
+    { name:"Chrystie Crownover", start:1972, end:1981, married:true, kids:2 },
+  ],
+  "Robert Kardashian": [
+    { name:"Ellen Pierson", start:2003, end:2003, married:true, note:"Married weeks before he died in 2003." },
+    { name:"Jan Ashley", start:1998, end:1998, married:true, note:"Annulled after about a month." },
+  ],
+  "Rita Ora": [
+    { name:"Taika Waititi", start:2021, end:null, married:true, note:"Married 2022." },
+    { name:"Calvin Harris", start:2013, end:2014 },
+  ],
+  "Adrienne Bailon": [
+    { name:"Israel Houghton", start:2016, end:null, married:true, kids:1, note:"Married 2016; son Ever, born 2022." },
+  ],
+};
+/* ===================== end of editable content ===================== */
+
+const $ = s => document.querySelector(s);
+const NOW = new Date().getFullYear();
+const initials = n => n.replace(/[^A-Za-zÀ-ÿ$ ]/g,"").split(" ").filter(Boolean).map(w=>w[0]).slice(0,2).join("").toUpperCase();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const typeLabel = {ath:"Athlete", mus:"Music", scr:"Screen", oth:"Other"};
+const heartSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+const current = f => f.partners.find(p => p.end === null);
+const wiki = p => p.wiki || (p.page ? `https://en.wikipedia.org/wiki/${encodeURIComponent(p.page)}` : `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(p.name)}`);
+const photoKey = p => esc((p.page || p.name).replace(/ /g, "_"));
+/* Photos: pulled live from each person's Wikipedia article (free-licensed lead image).
+   Works when the file is opened in a normal browser; falls back to initials if blocked or offline. */
+const photoCache = new Map();
+function photoFor(title){
+  if (!photoCache.has(title)) photoCache.set(title,
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}?redirect=true`)
+      .then(r => r.ok ? r.json() : null)
+      .then(j => j && j.type !== "disambiguation" && j.thumbnail ? j.thumbnail.source : null)
+      .catch(() => null));
+  return photoCache.get(title);
+}
+function loadPhotos(){
+  document.querySelectorAll(".av[data-photo]").forEach(av => {
+    if (av.querySelector("img")) return;
+    photoFor(av.dataset.photo).then(src => {
+      if (!src || av.querySelector("img")) return;
+      const img = new Image(); img.alt = ""; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+      img.onload = () => av.appendChild(img); img.src = src;
+    });
+  });
+}
+const ext = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+const yrs = p => {
+  if (!p.start) return p.end === null ? "now" : "";
+  const e = p.end === undefined ? p.start : p.end;
+  return p.start === (e ?? NOW) ? String(p.start) : `${p.start}–${e === null ? "now" : String(e).slice(-2)}`;
+};
+
+let sel = "kim", filter = "all";
+try { const h = location.hash.slice(1); if (FAMILY.some(f=>f.id===h)) sel = h; else { const s = localStorage.getItem("klf-tab"); if (s && FAMILY.some(f=>f.id===s)) sel = s; } } catch(e){}
+
+$("#updated").textContent = UPDATED;
+
+function renderNow(){
+  $("#now").innerHTML = FAMILY.map(f => {
+    const c = current(f);
+    return `<button class="couple" data-id="${f.id}" aria-label="Open ${esc(f.name)}'s file">
+      <div class="pair"><div class="av fam" data-photo="${photoKey(f)}">${initials(f.name)}</div>
+      ${c ? `<div class="heart">${heartSVG}</div><div class="av ${c.type}" data-photo="${photoKey(c)}">${initials(c.name)}</div>` : ""}</div>
+      <b>${esc(f.short)}</b>
+      ${c ? `<span>${esc(c.name)} · since ${c.start}</span>` : `<span class="single">${esc(f.status || "Single")}</span>`}
+    </button>`;
+  }).join("");
+  document.querySelectorAll(".couple").forEach(b => b.onclick = () => { document.getElementById("file-" + b.dataset.id).scrollIntoView({behavior:"smooth"}); });
+  loadPhotos();
+}
+
+function renderTabs(){
+  $("#tabs").innerHTML = FAMILY.map(f => `<button class="tab" role="tab" id="tab-${f.id}" aria-selected="${f.id===sel}" data-id="${f.id}">${esc(f.short)}</button>`).join("");
+  document.querySelectorAll(".tab").forEach(b => b.onclick = () => pick(b.dataset.id));
+}
+
+function fileHTML(f){
+  const c = current(f);
+  const P = f.partners;
+  const marriages = P.filter(p=>p.married).length;
+  const kids = P.reduce((a,p)=>a+(p.kids||0),0);
+  const longest = P.reduce((m,p)=>Math.max(m,(p.end ?? NOW)-p.start),0);
+  const FILTERS = [["all","All"],["ath","Athletes"],["mus","Music"],["scr","Screen"],["married","Married"],["kids","Had kids"]]
+    .filter(([k]) => k==="all" || P.some(p => k==="married"?p.married : k==="kids"?p.kids : p.type===k));
+  if (!FILTERS.some(([k])=>k===filter)) filter = "all";
+  const shown = P.filter(p => filter==="all" || (filter==="married"?p.married : filter==="kids"?p.kids : p.type===filter));
+
+  return `<article class="file" id="file-${f.id}">
+    <div class="file-head">
+      <div class="eyebrow">Born ${f.born}</div>
+      <h3><a href="${wiki(f)}" target="_blank" rel="noopener">${esc(f.name)}${ext}</a></h3>
+      ${c ? `<span class="status">${heartSVG.replace('<svg','<svg style="width:12px;height:12px;fill:currentColor"')} With ${esc(c.name)}</span>`
+          : `<span class="status solo">${esc(f.status || "Single")}</span>`}
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${P.length}</b><span>Partners</span></div>
+      <div class="stat"><b>${marriages}</b><span>Marriages</span></div>
+      <div class="stat"><b>${kids}</b><span>Kids</span></div>
+      <div class="stat"><b>${longest}<small style="font-size:14px"> yr</small></b><span>Longest</span></div>
+    </div>
+    <ol class="tl">
+      ${shown.length ? shown.map(p => `
+      <li class="ex ${p.type}">
+        <a class="av ${p.type}${p.rumored?" rumor":""}" data-photo="${photoKey(p)}" href="${wiki(p)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">${initials(p.name)}</a>
+        <div class="ex-body">
+          <div class="ex-top"><a class="ex-name" href="${wiki(p)}" target="_blank" rel="noopener">${esc(p.name)}${ext}</a><span class="years">${yrs(p)}</span></div>
+          <div class="tags">
+            ${p.end===null ? `<span class="tag now">Current</span>` : ""}
+            <span class="tag">${esc(p.role)}</span>
+            ${p.married ? `<span class="tag flag">Married</span>` : ""}
+            ${p.engaged ? `<span class="tag flag">Engaged</span>` : ""}
+            ${p.kids ? `<span class="tag flag">${p.kids} kid${p.kids>1?"s":""}</span>` : ""}
+            ${p.rumored ? `<span class="tag flag">Rumored</span>` : ""}
+          </div>
+          ${p.note ? `<p class="note">${esc(p.note)}</p>` : ""}
+        </div>
+      </li>`).join("") : `<li class="empty">Nobody in this category.</li>`}
+    </ol></article>`;
+}
+function renderFiles(){ $("#files").innerHTML = FAMILY.map(fileHTML).join(""); loadPhotos(); }
+
+function renderCurse(){
+  const ath = FAMILY.filter(f=>f.id!=="rob").flatMap(f => f.partners.filter(p=>p.type==="ath").map(p=>({p,f})));
+  const nba = ath.filter(({p}) => /NBA/.test(p.role)).length;
+  $("#curseN").textContent = ath.length;
+  $("#curseP").textContent = `Pro athletes the sisters and Kris have dated, ${nba} of them from the NBA. Khloé alone accounts for ${ath.filter(({f})=>f.id==="khloe").length}.`;
+}
+
+function pick(id){
+  sel = id; filter = "all";
+  try { localStorage.setItem("klf-tab", id); } catch(e){}
+  renderTabs(); renderFile();
+  const t = $("#tab-"+id); if (t) t.scrollIntoView({block:"nearest", inline:"center"});
+}
+
+/* ---------------- Network diagram ---------------- */
+const NET = { RK: 195, RO: 430, R3: 690, FULL: { x:-870, y:-870, w:1740, h:1740 } };
+const NODES = new Map(), EDGES = [];
+let netVB = { ...NET.FULL }, netFilter = "all", netAnim = 0;
+const relation = p => p.end === null ? (p.married ? "spouse" : "partner") : p.married ? "ex-spouse" : p.engaged ? "ex-fiancé(e)" : "ex";
+const reduceMotion = (() => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){ return false; } })();
+
+function buildNetwork(){
+  const kris = FAMILY.find(f => f.id === "kris") || FAMILY[0];
+  const kids = FAMILY.filter(f => f !== kris);
+  const slots = [], placed = new Set();
+  kids.forEach(k => {
+    kris.partners.forEach(p => { if (!placed.has(p) && p.parentOf && p.parentOf[0] === k.id){ placed.add(p); slots.push({ owner:kris, p }); } });
+    k.partners.forEach(p => slots.push({ owner:k, p }));
+  });
+  kris.partners.forEach(p => { if (!placed.has(p)) slots.push({ owner:kris, p }); });
+  let u = 0;
+  slots.forEach((s, i) => { const prev = slots[(i - 1 + slots.length) % slots.length]; if (prev.owner !== s.owner) u += 0.9; s.u = u; u += 1; });
+  const ang = v => v / u * Math.PI * 2 - Math.PI / 2;
+  NODES.set(kris.id, { id:kris.id, kind:"fam", f:kris, a:Math.PI/2, x:0, y:0, r:58 });
+  kids.forEach(k => {
+    const mine = slots.filter(s => s.owner === k);
+    const a = mine.length ? ang((mine[0].u + mine[mine.length - 1].u + 1) / 2) : 0;
+    NODES.set(k.id, { id:k.id, kind:"fam", f:k, a, x:Math.cos(a) * NET.RK, y:Math.sin(a) * NET.RK, r:42 });
+    EDGES.push({ kind:"fam", a:kris.id, b:k.id });
+  });
+  slots.forEach((s, i) => {
+    const id = "p" + i, a = ang(s.u + 0.5);
+    NODES.set(id, { id, kind:"ex", p:s.p, owner:s.owner, a, x:Math.cos(a) * NET.RO, y:Math.sin(a) * NET.RO, r:22 });
+    EDGES.push({ kind:"rom", a:s.owner.id, b:id, p:s.p });
+    (s.p.parentOf || []).forEach(kid => { if (NODES.has(kid)) EDGES.push({ kind:"par", a:id, b:kid }); });
+  });
+
+  // Third ring: the partners' own famous partners
+  const ring2 = [...NODES.values()].filter(n => n.kind === "ex");
+  const byName = new Map(ring2.map(n => [n.p.name, n]));
+  const outer = new Map();
+  ring2.forEach(n => {
+    (OUTER[n.p.name] || []).forEach(o => {
+      const twin = byName.get(o.name);
+      if (twin){
+        if (!EDGES.some(e => e.kind === "cross" && ((e.a === n.id && e.b === twin.id) || (e.a === twin.id && e.b === n.id))))
+          EDGES.push({ kind:"cross", a:n.id, b:twin.id, p:o });
+        return;
+      }
+      let m = outer.get(o.name);
+      if (!m){ m = { id:"o" + outer.size, kind:"o", o, links:[], r:15 }; outer.set(o.name, m); }
+      m.links.push({ n, o });
+    });
+  });
+  const TAU = Math.PI * 2, norm = a => ((a + Math.PI / 2) % TAU + TAU) % TAU;
+  const list = [...outer.values()];
+  list.forEach((m, i) => {
+    const angs = m.links.map(l => l.n.a);
+    const spread = angs.length > 1 ? Math.abs(Math.atan2(Math.sin(angs[0] - angs[1]), Math.cos(angs[0] - angs[1]))) : 0;
+    m.want = (spread && spread < 1.7
+      ? norm(Math.atan2(angs.reduce((s, a) => s + Math.sin(a), 0), angs.reduce((s, a) => s + Math.cos(a), 0)))
+      : norm(angs[0])) + i * 1e-4;
+  });
+  list.sort((a, b) => a.want - b.want);
+  const sep = Math.min(TAU / Math.max(1, list.length) * 0.97, 0.12);
+  const A = list.map(m => m.want);
+  for (let it = 0; it < 500; it++){
+    let moved = false;
+    for (let i = 0; i < A.length; i++){
+      const j = (i + 1) % A.length, gap = (j === 0 ? A[0] + TAU : A[j]) - A[i];
+      if (A.length > 1 && gap < sep - 1e-6){ const push = (sep - gap) / 2; A[i] -= push; A[j] += push; moved = true; }
+    }
+    if (!moved) break;
+  }
+  list.forEach((m, i) => {
+    m.a = A[i] - Math.PI / 2; m.x = Math.cos(m.a) * NET.R3; m.y = Math.sin(m.a) * NET.R3;
+    NODES.set(m.id, m);
+    m.links.forEach(l => EDGES.push({ kind:"out", a:l.n.id, b:m.id, p:l.o }));
+  });
+}
+function verb(o){
+  if (o.rumored) return "Linked to";
+  if (o.end === null) return o.married ? "Married to" : o.engaged ? "Engaged to" : "Dating";
+  return o.married ? "Was married to" : o.engaged ? "Was engaged to" : "Dated";
+}
+
+function renderNetwork(){
+  const svg = $("#net"), f1 = v => v.toFixed(1);
+  const edgeSVG = (e, i) => {
+    const A = NODES.get(e.a), B = NODES.get(e.b);
+    let d = `M${f1(A.x)} ${f1(A.y)} L${f1(B.x)} ${f1(B.y)}`;
+    const far = Math.abs(Math.atan2(Math.sin(A.a - B.a), Math.cos(A.a - B.a)));
+    if (e.kind === "par" || e.kind === "cross" || (e.kind === "out" && far > 0.6)){
+      const m = Math.atan2(Math.sin(A.a) + Math.sin(B.a), Math.cos(A.a) + Math.cos(B.a));
+      const rr = e.kind === "par" ? (NET.RK + NET.RO) / 2 + 20 : NET.RO * 0.35;
+      d = `M${f1(A.x)} ${f1(A.y)} Q${f1(Math.cos(m) * rr)} ${f1(Math.sin(m) * rr)} ${f1(B.x)} ${f1(B.y)}`;
+    }
+    const p = e.p, flags = p ? `${p.end === null ? " cur" : ""}${p.married ? " mar" : ""}${p.rumored ? " rum" : ""}` : "";
+    const shared = e.kind === "cross" || (e.kind === "out" && NODES.get(e.b).links.length > 1);
+    const cls = e.kind === "rom" ? ` ${p.type}${flags}` : (e.kind === "out" || e.kind === "cross") ? `${flags}${shared ? " link" : ""}` : "";
+    return `<path data-i="${i}" class="e ${e.kind}${cls}" d="${d}"/>`;
+  };
+  const order = { par:0, out:1, rom:2, cross:3, fam:4 };
+  const edges = EDGES.map((e, i) => ({ e, i })).sort((x, y) => order[x.e.kind] - order[y.e.kind]).map(({ e, i }) => edgeSVG(e, i)).join("");
+  const nodeSVG = n => {
+    const fam = n.kind === "fam", who = fam ? n.f : (n.p || n.o);
+    let lab;
+    if (fam) lab = `<text class="lab" y="${n.r + 36}">${esc(n.f.short)}</text>`;
+    else {
+      const deg = n.a * 180 / Math.PI, flip = Math.cos(n.a) < -0.01;
+      lab = `<text class="lab" text-anchor="${flip ? "end" : "start"}" transform="rotate(${f1(flip ? deg + 180 : deg)}) translate(${flip ? -(n.r + 8) : n.r + 8},0)">${esc(who.name)}</text>`;
+    }
+    const cls = fam ? "fam" + (n.id === "kris" ? " root" : "")
+      : n.kind === "o" ? `on3${n.o.end === null ? " cur3" : ""}${n.o.rumored ? " rum" : ""}${n.links.length > 1 ? " shared" : ""}`
+      : `pn ${n.p.type}${n.p.end === null ? " cur" : ""}${n.p.rumored ? " rum" : ""}`;
+    const label = fam ? n.f.name
+      : n.kind === "o" ? `${n.o.name}, ${n.links.map(l => verb(l.o).toLowerCase() + " " + l.n.p.name).join(" and ")}`
+      : `${n.p.name}, ${n.owner.short}'s ${relation(n.p)}`;
+    return `<g class="n ${cls}" data-id="${n.id}" data-photo="${photoKey(who)}" transform="translate(${f1(n.x)},${f1(n.y)})" tabindex="0" role="button" aria-label="${esc(label)}">`
+      + `<circle class="ring" r="${n.r}"/><text class="ini">${initials(who.name)}</text>`
+      + `<image width="${n.r * 2 - 4}" height="${n.r * 2 - 4}" x="${2 - n.r}" y="${2 - n.r}" preserveAspectRatio="xMidYMin slice" clip-path="url(#clip${n.r})" style="visibility:hidden"/>${lab}</g>`;
+  };
+  const all = [...NODES.values()], radii = [...new Set(all.map(n => n.r))];
+  svg.innerHTML = `<defs>${radii.map(r => `<clipPath id="clip${r}"><circle r="${r - 2}"/></clipPath>`).join("")}</defs>`
+    + `<rect x="-3000" y="-3000" width="6000" height="6000" fill="transparent"/>`
+    + `<circle class="ring-guide rg3" r="${NET.R3}"/><circle class="ring-guide" r="${NET.RO}"/><circle class="ring-guide" r="${NET.RK}"/>`
+    + `<g>${edges}</g><g>${["o", "ex", "fam"].map(k => all.filter(n => n.kind === k).map(nodeSVG).join("")).join("")}</g>`;
+  setVB(NET.FULL);
+  svg.querySelectorAll(".n").forEach(g => photoFor(g.dataset.photo).then(src => {
+    if (!src) return;
+    const im = g.querySelector("image");
+    im.addEventListener("load", () => { im.style.visibility = "visible"; }, { once:true });
+    im.setAttribute("href", src);
+  }));
+  netDefault();
+}
+
+function setVB(v){
+  netVB = v;
+  const svg = $("#net");
+  svg.setAttribute("viewBox", `${v.x.toFixed(1)} ${v.y.toFixed(1)} ${v.w.toFixed(1)} ${v.h.toFixed(1)}`);
+  svg.style.touchAction = v.w < NET.FULL.w - 1 ? "none" : "pan-y";
+}
+function clampVB(v){
+  const F = NET.FULL, w = Math.max(300, Math.min(F.w, v.w));
+  if (w >= F.w) return { ...F };
+  const cx = Math.max(F.x + w / 2, Math.min(F.x + F.w - w / 2, v.x + v.w / 2));
+  const cy = Math.max(F.y + w / 2, Math.min(F.y + F.h - w / 2, v.y + v.h / 2));
+  return { x:cx - w / 2, y:cy - w / 2, w, h:w };
+}
+function animVB(t){
+  cancelAnimationFrame(netAnim);
+  if (reduceMotion){ setVB(t); return; }
+  const s = { ...netVB }, t0 = performance.now(), D = 420;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
+    setVB({ x:s.x + (t.x - s.x) * e, y:s.y + (t.y - s.y) * e, w:s.w + (t.w - s.w) * e, h:s.h + (t.h - s.h) * e });
+    if (k < 1) netAnim = requestAnimationFrame(step);
+  };
+  netAnim = requestAnimationFrame(step);
+}
+function zoomBy(f, cx, cy, animate){
+  if (cx === undefined){ cx = netVB.x + netVB.w / 2; cy = netVB.y + netVB.h / 2; }
+  const t = clampVB({ x:cx - (cx - netVB.x) * f, y:cy - (cy - netVB.y) * f, w:netVB.w * f, h:netVB.h * f });
+  animate ? animVB(t) : setVB(t);
+}
+function toSVG(cx, cy){
+  const r = $("#net").getBoundingClientRect();
+  const s = Math.max(netVB.w / r.width, netVB.h / r.height);
+  return { x:netVB.x - (r.width * s - netVB.w) / 2 + (cx - r.left) * s, y:netVB.y - (r.height * s - netVB.h) / 2 + (cy - r.top) * s, s };
+}
+
+function netFocusOn(id){
+  const node = NODES.get(id); if (!node) return;
+  const on = new Set([id]), onE = new Set();
+  EDGES.forEach((e, i) => { if (e.a === id || e.b === id){ onE.add(i); on.add(e.a); on.add(e.b); } });
+  const svg = $("#net");
+  svg.classList.add("focus");
+  svg.querySelectorAll(".n").forEach(g => g.classList.toggle("on", on.has(g.dataset.id)));
+  svg.querySelectorAll(".e").forEach(p => p.classList.toggle("on", onE.has(+p.dataset.i)));
+  const pts = [];
+  on.forEach(nid => {
+    const n = NODES.get(nid);
+    pts.push([n.x - n.r, n.y - n.r], [n.x + n.r, n.y + n.r]);
+    if (n.kind !== "fam"){ const L = n.r + 14 + (n.p || n.o).name.length * (n.kind === "o" ? 7.6 : 9); pts.push([n.x + Math.cos(n.a) * L, n.y + Math.sin(n.a) * L]); }
+    else pts.push([n.x - 95, n.y + n.r + 56], [n.x + 95, n.y + n.r + 56]);
+  });
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const x0 = Math.min(...xs) - 30, x1 = Math.max(...xs) + 30, y0 = Math.min(...ys) - 30, y1 = Math.max(...ys) + 30;
+  const w = Math.max(500, x1 - x0, y1 - y0);
+  animVB(clampVB({ x:(x0 + x1) / 2 - w / 2, y:(y0 + y1) / 2 - w / 2, w, h:w }));
+  $("#netInfo").innerHTML = node.kind === "fam" ? infoFam(node.f) : node.kind === "o" ? infoOuter(node) : infoEx(node);
+}
+function netReset(){
+  const svg = $("#net");
+  svg.classList.remove("focus");
+  svg.querySelectorAll(".on").forEach(el => el.classList.remove("on"));
+  animVB({ ...NET.FULL });
+  netDefault();
+}
+function netDefault(){
+  const all = [...NODES.values()], ex = all.filter(n => n.kind === "ex"), o3 = all.filter(n => n.kind === "o");
+  const shared = o3.filter(n => n.links.length > 1).length + EDGES.filter(e => e.kind === "cross").length;
+  $("#netInfo").innerHTML = `<div class="eyebrow">How to read it</div>
+    <p class="note">Kris sits in the middle with her six kids on gold family lines. The second ring is everyone they've dated. The outer ring is who those partners dated, and pink dotted lines mark people shared between two branches of the family. Tap anyone to light up their connections.</p>
+    <p class="note"><b>${all.filter(n => n.kind === "fam").length}</b> family · <b>${ex.length}</b> partners · <b>${o3.length}</b> partners' partners · <b>${shared}</b> shared links</p>`;
+}
+function infoFam(f){
+  const c = current(f), P = f.partners, m = P.filter(p => p.married).length;
+  const pid = p => [...NODES.values()].find(n => n.p === p).id;
+  return `<div class="eyebrow">${f.id === "kris" ? "The momager · born " + f.born : "Born " + f.born}</div>
+    <h3><a href="${wiki(f)}" target="_blank" rel="noopener">${esc(f.name)}${ext}</a></h3>
+    <p class="note">${c ? `With <b>${esc(c.name)}</b> since ${c.start}` : esc(f.status || "Single")} · ${P.length} partners${m ? ` · ${m} marriage${m > 1 ? "s" : ""}` : ""}</p>
+    <div class="pchips">${P.map(p => `<button class="chip p ${p.type}" data-go="${pid(p)}">${esc(p.name)}</button>`).join("")}</div>
+    <a class="jump" href="#file-${f.id}">Full history ↓</a>`;
+}
+function infoEx(n){
+  const p = n.p, o = n.owner;
+  const others = EDGES.filter(e => (e.kind === "out" && e.a === n.id) || (e.kind === "cross" && (e.a === n.id || e.b === n.id)))
+    .map(e => { const t = NODES.get(e.kind === "out" ? e.b : (e.a === n.id ? e.b : e.a)); return { id:t.id, name:(t.o || t.p).name }; });
+  const otherHTML = others.length ? `<div class="eyebrow" style="margin-top:4px">Their other famous partners</div>
+    <div class="pchips">${others.map(t => `<button class="chip" data-go="${t.id}">${esc(t.name)}</button>`).join("")}</div>` : "";
+  return `<div class="eyebrow">${esc(o.short)}'s ${relation(p)}</div>
+    <h3><a href="${wiki(p)}" target="_blank" rel="noopener">${esc(p.name)}${ext}</a></h3>
+    <div class="tags ${p.type}"><span class="tag">${esc(p.role)}</span><span class="tag flag">${yrs(p)}</span>${p.married ? `<span class="tag flag">Married</span>` : ""}${p.engaged ? `<span class="tag flag">Engaged</span>` : ""}${p.kids ? `<span class="tag flag">${p.kids} kid${p.kids > 1 ? "s" : ""}</span>` : ""}${p.rumored ? `<span class="tag flag">Rumored</span>` : ""}</div>
+    ${p.note ? `<p class="note">${esc(p.note)}</p>` : ""}
+    ${otherHTML}
+    <div class="pchips"><button class="chip" data-go="${o.id}">Back to ${esc(o.short)}</button></div>`;
+}
+function infoOuter(n){
+  const o = n.o, L = n.links;
+  const via = L.map(l => `${esc(l.n.owner.short)}'s ${relation(l.n.p)} ${esc(l.n.p.name)}`).join(" and ");
+  return `<div class="eyebrow">${L.map(l => `${verb(l.o)} ${esc(l.n.p.name)}`).join(" · ")}</div>
+    <h3><a href="${wiki(o)}" target="_blank" rel="noopener">${esc(o.name)}${ext}</a></h3>
+    <div class="tags oth">${yrs(o) ? `<span class="tag flag">${yrs(o)}</span>` : ""}${o.married ? `<span class="tag flag">Married</span>` : ""}${o.engaged ? `<span class="tag flag">Engaged</span>` : ""}${o.kids ? `<span class="tag flag">${o.kids} kid${o.kids > 1 ? "s" : ""}</span>` : ""}${o.rumored ? `<span class="tag flag">Rumored</span>` : ""}${L.length > 1 ? `<span class="tag now">Shared ex</span>` : ""}</div>
+    ${L.map(l => l.o.note ? `<p class="note">${esc(l.o.note)}</p>` : "").join("")}
+    <p class="note">${L.length > 1 ? "A double link to the family, through " : "Linked to the family through "}${via}.</p>
+    <div class="pchips">${L.map(l => `<button class="chip" data-go="${l.n.id}">To ${esc(l.n.p.name)}</button>`).join("")}</div>`;
+}
+function applyNetFilter(){
+  const ok = p => netFilter === "all" || (netFilter === "cur" ? p.end === null : netFilter === "mar" ? p.married : p.type === netFilter);
+  document.querySelectorAll("#net .n.pn").forEach(g => g.classList.toggle("dim", !ok(NODES.get(g.dataset.id).p)));
+  document.querySelectorAll("#net .e.rom").forEach(el => el.classList.toggle("dim", !ok(EDGES[+el.dataset.i].p)));
+  const ok3 = o => netFilter === "all" || (netFilter === "cur" ? o.end === null : netFilter === "mar" ? !!o.married : false);
+  document.querySelectorAll("#net .n.on3").forEach(g => g.classList.toggle("dim", !ok3(NODES.get(g.dataset.id).o)));
+  document.querySelectorAll("#net .e.out, #net .e.cross").forEach(el => el.classList.toggle("dim", !ok3(EDGES[+el.dataset.i].p)));
+  document.querySelectorAll("#netFilters .chip[data-f]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.f === netFilter)));
+}
+
+function wireNetwork(){
+  const svg = $("#net"), pts = new Map();
+  let drag = null, pinch = null, moved = false;
+  svg.addEventListener("pointerdown", e => {
+    pts.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    if (pts.size === 1){ drag = { x:e.clientX, y:e.clientY, vb:{ ...netVB } }; moved = false; }
+    else if (pts.size === 2){
+      const [a, b] = [...pts.values()];
+      pinch = { d:Math.hypot(a.x - b.x, a.y - b.y) || 1, vb:{ ...netVB }, c:toSVG((a.x + b.x) / 2, (a.y + b.y) / 2) };
+      drag = null;
+    }
+  });
+  svg.addEventListener("pointermove", e => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    if (pinch && pts.size === 2){
+      const [a, b] = [...pts.values()];
+      const w = Math.max(300, Math.min(NET.FULL.w, pinch.vb.w * pinch.d / (Math.hypot(a.x - b.x, a.y - b.y) || 1))), k = w / pinch.vb.w;
+      cancelAnimationFrame(netAnim); moved = true;
+      setVB(clampVB({ x:pinch.c.x - (pinch.c.x - pinch.vb.x) * k, y:pinch.c.y - (pinch.c.y - pinch.vb.y) * k, w, h:w }));
+    } else if (drag && netVB.w < NET.FULL.w - 1){
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!moved && Math.hypot(dx, dy) < 6) return;
+      if (!moved){ moved = true; try { svg.setPointerCapture(e.pointerId); } catch(_){} }
+      cancelAnimationFrame(netAnim);
+      const s = toSVG(0, 0).s;
+      setVB(clampVB({ ...drag.vb, x:drag.vb.x - dx * s, y:drag.vb.y - dy * s }));
+    }
+  });
+  const up = e => {
+    pts.delete(e.pointerId);
+    if (pts.size < 2) pinch = null;
+    if (pts.size === 1){ const [r] = [...pts.values()]; drag = { x:r.x, y:r.y, vb:{ ...netVB } }; }
+    if (pts.size === 0) drag = null;
+  };
+  svg.addEventListener("pointerup", up);
+  svg.addEventListener("pointercancel", up);
+  svg.addEventListener("click", e => {
+    if (moved){ moved = false; return; }
+    const g = e.target.closest(".n");
+    g ? netFocusOn(g.dataset.id) : netReset();
+  });
+  svg.addEventListener("keydown", e => {
+    const g = e.target.closest && e.target.closest(".n");
+    if (g && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); netFocusOn(g.dataset.id); }
+    if (e.key === "Escape") netReset();
+  });
+  svg.addEventListener("wheel", e => {
+    if (!(e.ctrlKey || e.metaKey)) return;
+    e.preventDefault(); cancelAnimationFrame(netAnim);
+    const p = toSVG(e.clientX, e.clientY);
+    zoomBy(Math.exp(e.deltaY * 0.01), p.x, p.y, false);
+  }, { passive:false });
+  $("#zIn").onclick = () => zoomBy(0.65, undefined, undefined, true);
+  $("#zOut").onclick = () => zoomBy(1 / 0.65, undefined, undefined, true);
+  $("#zReset").onclick = netReset;
+  $("#netInfo").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) netFocusOn(b.dataset.go); });
+  document.querySelectorAll("#netFilters .chip[data-f]").forEach(b => b.onclick = () => { netFilter = b.dataset.f; applyNetFilter(); });
+  $("#ring3").onclick = () => {
+    const hide = $("#net").classList.toggle("hide3");
+    $("#ring3").setAttribute("aria-pressed", String(!hide));
+  };
+}
+
+buildNetwork(); renderNetwork(); wireNetwork();
+renderNow(); renderFiles(); renderCurse();
+</script>
+
+
+
+</body></html>
